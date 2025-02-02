@@ -7,7 +7,7 @@ from multiprocessing import Process
 
 
 class dialogWindow(QDialog):
-    size = QSize(500, 200)
+    size = QSize(500, 170)
     
     def __init__(self, information):      
 
@@ -17,24 +17,24 @@ class dialogWindow(QDialog):
 
         self.setFixedSize(QSize(510,210)) 
 
-        scroll = QScrollArea(self)
+        mainLayout = QVBoxLayout(self)
+        mainLayout.setContentsMargins(5, 5, 5, 5)
+
+        scroll = QScrollArea()
         scroll.setFixedSize(self.size)
-        scroll.setWidgetResizable(True)  
+        scroll.setWidgetResizable(True)
 
         label = QLabel(information)
         label.setWordWrap(True)
         label.setTextInteractionFlags(Qt.TextSelectableByMouse) 
 
         scroll.setWidget(label)
-
-        layout = QVBoxLayout()
-        layout.setContentsMargins(5, 5, 5, 5)
-        layout.addWidget(scroll)
-        self.setLayout(layout)
         
         self.progressBar = QProgressBar()
         self.progressBar.setAlignment(Qt.AlignCenter)
-        layout.addWidget(self.progressBar)
+
+        mainLayout.addWidget(scroll)
+        mainLayout.addWidget(self.progressBar)
 
     
     def update_progress_bar(self, value):

@@ -1,43 +1,15 @@
-import time
-import sys, os
-sys.path.append(os.path.dirname(
-                os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-
-from actions_augumentation.classes.entites_aug_class import *
-from actions_augumentation.aug.entites_aug import *
-
-def on_btnStart(queue, path):
-    total_steps = 100
-    current_step = 0
-    if path:
-        print(f"VASH PUT--------------> {path}")
-    else:
-        print(f"VASH PUT-------------->Не указан...")
-    for i in range(total_steps):
-        if i % 6 == 0:
-            time.sleep(1)
-        else:
-            print("Процесс выполняется")
-        
-        current_step += 1
-        percentage = int((current_step / total_steps) * 100)
-        queue.put(percentage)
-    percentage = 0  
-
-    queue.put(None)
-
-
-
+#В этом файле описаны функции, для аугументирования классов (тоесть функции альбументатион применяются только к интересующему нас классу)
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import cv2
 import albumentations as A
 import numpy as np
-from actions_augumentation.convert_utils.convert import yolo_to_x1y1x2y2
+from convert_utils.convert import yolo_to_x1y1x2y2
+from aug.core_aug import read_yolo_annotations
+from random import randint
 from uuid import uuid4
-from actions_augumentation.aug.core_aug import *
-from actions_augumentation.aug.engine import *
+from aug.core_aug import *
+from aug.engine import *
 
 def apply_aug_class(image, coordinate_yolo, names_class, listParams) -> list:
     """
@@ -74,4 +46,14 @@ def apply_aug_class(image, coordinate_yolo, names_class, listParams) -> list:
 
 
 
+
+if __name__ == "__main__":
+
+    image = cv2.imread(r"C:\WorkSpace\Python\machinist_help\aug\dataset\foto.jpg")
+    anotation = read_yolo_annotations(r"C:\WorkSpace\Python\machinist_help\aug\dataset\foto.txt")
+    name_class = [0]
+    
+    
+    #j = change_classes_RIHR(image, anotation, name_class)
+    print(type(j[0]), type(j[1]))
     

@@ -58,7 +58,13 @@ QPushButton
 	border-radius: 3px;
 	padding: 5px;
 
+}
 
+
+QPushButton:disabled
+{
+    background-color: #cccccc;  /* Цвет фона для неактивной кнопки */
+    color: #666666;             /* Цвет текста для неактивной кнопки */
 }
 
 

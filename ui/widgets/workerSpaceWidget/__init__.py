@@ -2,7 +2,6 @@ import sys, os
 sys.path.append(os.path.dirname(
                 os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-
 from PySide6.QtWidgets import (
     QStackedWidget,
     QCheckBox,
@@ -13,61 +12,44 @@ from PySide6.QtWidgets import (
     QWidget,
     QLineEdit,
     QSizePolicy,
-    QDialog)
-from PySide6.QtCore import QSize, Qt
+    QScrollArea)
+from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QPixmap, QImage
 from widgets.sidebarWidget import sidebarWidget
-from tabWidget import tabWidget
 from dialogWindow import dialogWindow
-from labels.sidebarLabel import sidebarLabel
-from functools import partial
-import time
-from dialogWindow import dialogWindow
-from events.internal.on_btnStart import *
+from processes.process_aug import *
+from dictsParams import *
+from groupBoxChange import groupBoxChange
+from events.internal.on_btnChange import *
 
-def fun1():
-    print("Выполнилась функция 1")
 
-def fun2():
-    print("Выполнилась функция 2")
 
-def fun3():
-    print("Выполнилась функция 3")
 
-def fun4():
-    print("Выполнилась функция 4")
 
 
 class workSpaceWidget(QStackedWidget):
     
-    dictParams = {
-        "Название функции1": partial(fun1),
-        "Название функции2": partial(fun2),
-        "Название функции3": partial(fun3),
-        "Название функции4": partial(fun4) }
+    dictParamsInternal = dictInternalAug_brightness_settings
+    dictParamsExternal = dictInternalAug_transform_settings #Переделать под yolo
 
     def __init__(self):
         
         super().__init__()
         self.placment()
 
-        #1. В placment определить сначала приветсвенный экран!
-        #2. Опеределить методы по вкладкам (1 метод - 1 вкладка и размещение там, + retunr widget)
     
     def placment(self):
          
         self.addWidget(self.welcome()) #0
         self.addWidget(self.internal()) #1
-        self.addWidget(self.analyse()) #2
+        self.addWidget(self.external()) #2
         self.addWidget(self.DB()) #3
         self.addWidget(self.users()) #4
         self.addWidget(self.report())
 
 
     def welcome(self):
-        #!!!!сейча сбуду использовать классическую табилцу,
-        #!!!!Далее нужно будет ее переопредилть, явно укзаать откуда брать данные
-        #!!!!Класс таблица будет в папке tabel
+        
         widget = QWidget()
         layout = QHBoxLayout()
         widget.setLayout(layout)
@@ -84,29 +66,85 @@ class workSpaceWidget(QStackedWidget):
 
 
     def internal(self):
-         
+
         widget = QWidget()
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        widget.setLayout(layout)
+        layout = QVBoxLayout(widget)
+
+        self.boxChange = groupBoxChange()
+        self.boxChange.btnChange.clicked.connect(lambda: openDirectory(self.boxChange.lineEdit))
+
+        scroll = QScrollArea()
+        scroll.setMinimumSize(QSize(512, 512))
+        scroll.setWidgetResizable(True)
+
+        scroll_widget = QWidget()
+        scroll_layout = QVBoxLayout(scroll_widget)
 
         self.status_ChecBox = {}
 
-        for key, item in self.dictParams.items():
-            checkBox = QCheckBox(text = key)
+        for key, item in self.dictParamsInternal.items():
+            checkBox = QCheckBox(text=key)
             self.status_ChecBox[key] = checkBox
-            layout.addWidget(checkBox)
+            scroll_layout.addWidget(checkBox)
 
-        self.btnStart = QPushButton("Push me!")
-        layout.addWidget(self.btnStart)
+        scroll.setWidget(scroll_widget)
 
-        self.btnStart.clicked.connect(self.on_btnStart)
+        self.btnStart = QPushButton("Начать аугументацию по выбранным функциям")
+        self.btnStart.clicked.connect(self.on_btnStart_brightness_settings)
+
+        layout.addWidget(self.boxChange)
+        layout.addWidget(scroll)
+        layout.addWidget(self.btnStart)     
 
         self.process_running = False
 
         return widget
     
-    def on_btnStart(self, text):
+
+    def external(self):
+         
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+
+        self.boxChange_external = groupBoxChange()
+        self.boxChange_external.btnChange.clicked.connect(lambda: openDirectory(self.boxChange_external.lineEdit))
+
+        scroll = QScrollArea()
+        scroll.setMinimumSize(QSize(512, 512))
+        scroll.setWidgetResizable(True)
+
+        scroll_widget = QWidget()
+        scroll_layout = QVBoxLayout(scroll_widget)
+
+        self.status_ChecBox_external = {}
+
+        for key, item in self.dictParamsExternal.items():
+            checkBox = QCheckBox(text=key)
+            self.status_ChecBox_external[key] = checkBox
+            scroll_layout.addWidget(checkBox)
+
+        scroll.setWidget(scroll_widget)
+
+        self.btnStart_external = QPushButton("Начать аугументацию по выбранным функциям и параметрам")
+        self.btnStart_external.clicked.connect(self.on_btnStart_trasform)
+
+        layout.addWidget(self.boxChange_external)
+        layout.addWidget(scroll)
+        layout.addWidget(self.btnStart_external)     
+
+        self.process_running_external = False
+
+        return widget
+    
+
+    def on_btnStart_brightness_settings(self):
+
+        path = rf"{self.boxChange.lineEdit.text()}"
+        if path:
+            pass
+
+        else:
+            pass
 
         select_box = {
             key: item
@@ -123,30 +161,40 @@ class workSpaceWidget(QStackedWidget):
         if not self.process_running:
             self.process_running = True
             self.msg.progressBar.setValue(0)
-            self.btnStart.setEnabled(False)
-            self.thread = ProcessThread()
+            self.btnStart.setDisabled(True)
+            self.thread = ProcessThread(path)!!!!!!!!!!!! То же самое с path продлеать в transform Так же добавить функции и сделать аугументациююююю!!!!
+            self.thread.progress.connect(self.msg.update_progress_bar)
             self.thread.finished.connect(self.msg.update_progress_bar)
-            self.thread.finished.connect(self.btnStart.setEnabled)
+            self.thread.finished.connect(lambda: self.btnStart.setEnabled(True))
             self.thread.finished.connect(lambda: setattr(self, 'process_running', False))
             self.thread.done.connect(self.msg.close)
             self.thread.start()
 
-    def analyse(self):
-         
-        widget = QWidget()
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
-        widget.setLayout(layout)
+    def on_btnStart_trasform(self):
 
-        image = QImage(r"ui\widgets\workerSpaceWidget\Label3.jpg")
+        select_box = {
+            key: item
+            for key, item in self.status_ChecBox_external.items()
+            if self.status_ChecBox_external[key].isChecked()
+        }
+        text = f"Your selected CheckBox:\n {
+            '\n'.join(select_box.keys())
+        }"
+        
+        self.msg_external = dialogWindow(text)        
+        self.msg_external.show()
 
-        self.label = QLabel()
-        self.label.setScaledContents(True)
-        layout.addWidget(self.label)
-        self.label.setPixmap(QPixmap(image))
-
-        return widget
+        if not self.process_running_external:
+            self.process_running_external = True
+            self.msg_external.progressBar.setValue(0)
+            self.btnStart_external.setDisabled(True)
+            self.thread_external = ProcessThread()
+            self.thread_external.progress.connect(self.msg_external.update_progress_bar)
+            self.thread_external.finished.connect(self.msg_external.update_progress_bar)
+            self.thread_external.finished.connect(lambda: self.btnStart_external.setEnabled(True))
+            self.thread_external.finished.connect(lambda: setattr(self, 'process_running', False))
+            self.thread_external.done.connect(self.msg_external.close)
+            self.thread_external.start()
         
     
     def DB(self):
@@ -212,8 +260,6 @@ class workSpaceWidget(QStackedWidget):
 
 
 
-    
-    
 
 
 if __name__ == '__main__':
