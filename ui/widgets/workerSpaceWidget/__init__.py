@@ -124,13 +124,12 @@ class workSpaceWidget(QStackedWidget):
             self.process_running = True
             self.msg.progressBar.setValue(0)
             self.btnStart.setEnabled(False)
-            self.thread = ProcessThread(self.msg)
-            self.thread.start()
+            self.thread = ProcessThread()
             self.thread.finished.connect(self.msg.update_progress_bar)
             self.thread.finished.connect(self.btnStart.setEnabled)
             self.thread.finished.connect(lambda: setattr(self, 'process_running', False))
             self.thread.done.connect(self.msg.close)
-     
+            self.thread.start()
 
     def analyse(self):
          
