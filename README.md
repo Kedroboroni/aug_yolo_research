@@ -139,7 +139,7 @@
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;">
-    <img src="readme_image/user.png" alt="Logo" width="200" height="190">
+    <img src="readme_image/user.png" alt="Logo" width="400" height="390">
 </div>
 
 
