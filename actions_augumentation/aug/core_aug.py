@@ -1,7 +1,6 @@
 #Файл в котором описаны функции для работы с анотациями аугументации (файлы разметки)
 #Анотация и коментарии созданы с помощью GIGA Code
 import cv2
-from typing import List, Tuple
 from uuid import uuid4
 import numpy as np
 
@@ -106,7 +105,7 @@ def save_yolo_annotations(path_txtFile: str, coordinates) -> bool:
     
     return True
 
-def save_result_transform(path_directory: str, image, new_coordinate, flag=None) -> None:
+def save_result_transform(path_directory: str, new_image, new_coordinate, flag=None) -> None:
     """
     Сохраняет результат аугментации в указанной директории.
     
@@ -123,11 +122,11 @@ def save_result_transform(path_directory: str, image, new_coordinate, flag=None)
 
     if flag is None:
 
-        cv2.imwrite(rf"{path_directory}\{name_obj}.jpg", image)
+        cv2.imwrite(rf"{path_directory}\{name_obj}.jpg", new_image)
         save_yolo_annotations(rf"{path_directory}\{name_obj}.txt", new_coordinate)
     
     else:
-        cv2.imwrite(rf"{path_directory}\Нерпавильная_разметка_{name_obj}.jpg", image)
+        cv2.imwrite(rf"{path_directory}\Нерпавильная_разметка_{name_obj}.jpg", new_image)
         save_yolo_annotations(rf"{path_directory}\Нерпавильная_разметка_{name_obj}.txt", new_coordinate)
 
 def apply_transform_get_coordinate(image, coordinates, transformParent) -> tuple:

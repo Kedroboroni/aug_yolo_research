@@ -12,7 +12,8 @@ from PySide6.QtWidgets import (
     QWidget,
     QLineEdit,
     QSizePolicy,
-    QScrollArea)
+    QScrollArea,
+    QMessageBox)
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QPixmap, QImage
 from widgets.sidebarWidget import sidebarWidget
@@ -43,9 +44,8 @@ class workSpaceWidget(QStackedWidget):
         self.addWidget(self.welcome()) #0
         self.addWidget(self.internal()) #1
         self.addWidget(self.external()) #2
-        self.addWidget(self.DB()) #3
         self.addWidget(self.users()) #4
-        self.addWidget(self.report())
+
 
 
     def welcome(self):
@@ -81,11 +81,14 @@ class workSpaceWidget(QStackedWidget):
         scroll_layout = QVBoxLayout(scroll_widget)
 
         self.status_ChecBox = {}
+        self.listParams = []
 
         for key, item in self.dictParamsInternal.items():
             checkBox = QCheckBox(text=key)
             self.status_ChecBox[key] = checkBox
+            #self.listParams.append[item] !!!!Невозможно добавть функцию в список!!!!
             scroll_layout.addWidget(checkBox)
+            
 
         scroll.setWidget(scroll_widget)
 
@@ -117,10 +120,12 @@ class workSpaceWidget(QStackedWidget):
         scroll_layout = QVBoxLayout(scroll_widget)
 
         self.status_ChecBox_external = {}
+        self.listParams_external = []
 
         for key, item in self.dictParamsExternal.items():
             checkBox = QCheckBox(text=key)
             self.status_ChecBox_external[key] = checkBox
+            #self.listParams_external.append[item]
             scroll_layout.addWidget(checkBox)
 
         scroll.setWidget(scroll_widget)
@@ -140,79 +145,121 @@ class workSpaceWidget(QStackedWidget):
     def on_btnStart_brightness_settings(self):
 
         path = rf"{self.boxChange.lineEdit.text()}"
-        if path:
-            pass
-
-        else:
-            pass
 
         select_box = {
             key: item
             for key, item in self.status_ChecBox.items()
             if self.status_ChecBox[key].isChecked()
         }
-        text = f"Your selected CheckBox:\n {
-            '\n'.join(select_box.keys())
-        }"
-        
-        self.msg = dialogWindow(text)        
-        self.msg.show()
+        listKeys_func = list(select_box.keys())
 
-        if not self.process_running:
-            self.process_running = True
-            self.msg.progressBar.setValue(0)
-            self.btnStart.setDisabled(True)
-            self.thread = ProcessThread(path)!!!!!!!!!!!! То же самое с path продлеать в transform Так же добавить функции и сделать аугументациююююю!!!!
-            self.thread.progress.connect(self.msg.update_progress_bar)
-            self.thread.finished.connect(self.msg.update_progress_bar)
-            self.thread.finished.connect(lambda: self.btnStart.setEnabled(True))
-            self.thread.finished.connect(lambda: setattr(self, 'process_running', False))
-            self.thread.done.connect(self.msg.close)
-            self.thread.start()
+        text = f"<b>Ваши выбранные функции:</b> <br>  {
+            "<br>".join(select_box.keys())
+        }"
+
+        if path and select_box:
+            self.msg = dialogWindow(text)        
+            self.msg.show()
+        
+            if not self.process_running:
+                self.process_running = True
+                self.msg.progressBar.setValue(0)
+                self.btnStart.setDisabled(True)
+                self.thread = ProcessThread(path, listKeys_func)
+                self.thread.progress.connect(self.msg.update_progress_bar)
+                self.thread.finished.connect(self.msg.update_progress_bar)
+                self.thread.finished.connect(lambda: self.btnStart.setEnabled(True))
+                self.thread.finished.connect(lambda: setattr(self, 'process_running', False))
+                self.thread.done.connect(self.msg.close)
+                self.thread.start()
+            
+        elif select_box:
+            messageError = QMessageBox(text = "Укажите путь!")
+            messageError.setWindowTitle("Ошибка")
+            messageError.setIcon(QMessageBox.Warning)
+            messageError.setStandardButtons(QMessageBox.Ok)
+            messageError.exec_()
+
+            return
+        
+        elif path:
+            messageError = QMessageBox(text = "Выберите функции!")
+            messageError.setWindowTitle("Ошибка")
+            messageError.setIcon(QMessageBox.Warning)
+            messageError.setStandardButtons(QMessageBox.Ok)
+            messageError.exec_()
+
+            return
+
+        else:
+            messageError = QMessageBox(text = "Выберите путь и функции!!!")
+            messageError.setWindowTitle("Ошибка")
+            messageError.setIcon(QMessageBox.Warning)
+            messageError.setStandardButtons(QMessageBox.Ok)
+            messageError.exec_()
+
+            return
+                
+
 
     def on_btnStart_trasform(self):
 
-        select_box = {
+        path_external = rf"{self.boxChange_external.lineEdit.text()}"
+
+        select_box_external = {
             key: item
             for key, item in self.status_ChecBox_external.items()
             if self.status_ChecBox_external[key].isChecked()
         }
-        text = f"Your selected CheckBox:\n {
-            '\n'.join(select_box.keys())
+
+        listKeys_func_external = list(select_box_external.keys())
+
+        text = f"<b>Ваши выбранные функции:</b> <br>  {
+            "<br>".join(select_box_external.keys())
         }"
         
-        self.msg_external = dialogWindow(text)        
-        self.msg_external.show()
+        if path_external and select_box_external:
+            self.msg_external = dialogWindow(text)        
+            self.msg_external.show()
 
-        if not self.process_running_external:
-            self.process_running_external = True
-            self.msg_external.progressBar.setValue(0)
-            self.btnStart_external.setDisabled(True)
-            self.thread_external = ProcessThread()
-            self.thread_external.progress.connect(self.msg_external.update_progress_bar)
-            self.thread_external.finished.connect(self.msg_external.update_progress_bar)
-            self.thread_external.finished.connect(lambda: self.btnStart_external.setEnabled(True))
-            self.thread_external.finished.connect(lambda: setattr(self, 'process_running', False))
-            self.thread_external.done.connect(self.msg_external.close)
-            self.thread_external.start()
+            if not self.process_running_external:
+                self.process_running_external = True
+                self.msg_external.progressBar.setValue(0)
+                self.btnStart_external.setDisabled(True)
+                self.thread_external = ProcessThread(path_external, listKeys_func_external)
+                self.thread_external.progress.connect(self.msg_external.update_progress_bar)
+                self.thread_external.finished.connect(self.msg_external.update_progress_bar)
+                self.thread_external.finished.connect(lambda: self.btnStart_external.setEnabled(True))
+                self.thread_external.finished.connect(lambda: setattr(self, 'process_running', False))
+                self.thread_external.done.connect(self.msg_external.close)
+                self.thread_external.start()
+
+        elif select_box_external:
+            messageError = QMessageBox(text = "Укажите путь!")
+            messageError.setWindowTitle("Ошибка")
+            messageError.setIcon(QMessageBox.Warning)
+            messageError.setStandardButtons(QMessageBox.Ok)
+            messageError.exec_()
+
+            return
         
-    
-    def DB(self):
-         
-        widget = QWidget()
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        widget.setLayout(layout)
+        elif path_external:
+            messageError = QMessageBox(text = "Выберите функции!")
+            messageError.setWindowTitle("Ошибка")
+            messageError.setIcon(QMessageBox.Warning)
+            messageError.setStandardButtons(QMessageBox.Ok)
+            messageError.exec_()
 
-        image = QImage(r"ui\widgets\workerSpaceWidget\Label2.jpg")
+            return
+        
+        else:
+            messageError = QMessageBox(text = "Выберите путь и функции!!!")
+            messageError.setWindowTitle("Ошибка")
+            messageError.setIcon(QMessageBox.Warning)
+            messageError.setStandardButtons(QMessageBox.Ok)
+            messageError.exec_()
 
-        self.label = QLabel()
-        self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.label.setScaledContents(True)
-        layout.addWidget(self.label)
-        self.label.setPixmap(QPixmap(image))
-
-        return widget
+            return
 
 
     def users(self):
@@ -241,24 +288,6 @@ class workSpaceWidget(QStackedWidget):
         return widget
     
 
-    def report(self):
-
-        widget = QWidget()
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        widget.setLayout(layout)
-
-        image = QImage(r"ui\widgets\workerSpaceWidget\Label4.jpg")
-
-        self.label = QLabel()
-        self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.label.setScaledContents(True)
-        layout.addWidget(self.label)
-        self.label.setPixmap(QPixmap(image))
-
-        return widget
-
-
 
 
 
@@ -286,12 +315,6 @@ if __name__ == '__main__':
     
     l.addWidget(widget)
     l.addWidget(secondWidget)
-
-    #l2 = QHBoxLayout()
-   #secondWidget.setLayout(l2)
-    
-    #btn2 = QPushButton("Кнопка")
-    #l2.addWidget(btn2)
 
     window.resize(512, 300)
     window.show()

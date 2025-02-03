@@ -31,13 +31,14 @@ class ProcessThread(QThread):
     done = Signal()
     progress = Signal(int)
 
-    def __init__(self, path):
+    def __init__(self, path, listKeys):
         super().__init__()
         self.path = path
+        self.listKeys = listKeys
 
     def run(self):
         queue = Queue()
-        process = Process(target=on_btnStart, args=(queue, self.path, ))
+        process = Process(target=on_btnStart, args=(queue, self.path, self.listKeys,))
         process.start()
 
         while True:

@@ -16,7 +16,7 @@ class mainWindow(QMainWindow):
     def placment(self):
 
         centralWidget = QWidget()
-        self.setCentralWidget(centralWidget)
+        self.setCentralWidget(centralWidget)    
 
         layoutH = QHBoxLayout()
         layoutH.setContentsMargins(0, 0, 0, 0)

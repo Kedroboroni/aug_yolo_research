@@ -1,74 +1,60 @@
 import time
 import sys, os
 sys.path.append(os.path.dirname(
-                os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+        os.path.dirname(
+            os.path.dirname(
+                os.path.abspath(
+                    __file__
+                )
+            )
+        )
+    )
+)
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-
-from actions_augumentation.classes.entites_aug_class import *
+from dictsParams import *
+import cv2 
+from actions_augumentation.aug.core_aug import read_yolo_annotations
 from actions_augumentation.aug.entites_aug import *
 
-def on_btnStart(queue, path):
-    total_steps = 100
+
+
+
+
+def on_btnStart(queue, path, listKeys):
+
+    obects_in_directory = os.listdir(path)
+    total_steps = int(len(obects_in_directory)/2)
     current_step = 0
-    if path:
-        print(f"VASH PUT--------------> {path}")
-    else:
-        print(f"VASH PUT-------------->Не указан...")
-    for i in range(total_steps):
-        if i % 6 == 0:
-            time.sleep(1)
-        else:
-            print("Процесс выполняется")
-        
-        current_step += 1
-        percentage = int((current_step / total_steps) * 100)
-        queue.put(percentage)
+    
+    listParams = []
+    for key in listKeys:
+        listParams.append(dictInternalAug_brightness_and_transform_settings[key])
+
+    for current_step, name_object in enumerate(obects_in_directory):
+
+        if name_object.endswith('.txt'):
+
+            name_img = rf"{os.path.splitext(name_object)[0]}.jpg"
+            name_txt = rf"{os.path.splitext(name_object)[0]}.txt"
+
+            if name_img in obects_in_directory and name_txt in obects_in_directory:
+
+                name_img = rf"{path}\{os.path.splitext(name_object)[0]}.jpg"
+                name_txt = rf"{path}\{os.path.splitext(name_object)[0]}.txt"
+
+                time.sleep(0.0001)
+                image = cv2.imread(name_img)
+                anotation = read_yolo_annotations(name_txt)
+
+                new_image, new_anotation, flag = apply_aug_image(image, anotation, listParams)
+                save_result_transform(path, new_image, new_anotation, flag)
+            
+                percentage = int(((current_step/2) / total_steps) * 100)
+                queue.put(percentage)
+
     percentage = 0  
-
     queue.put(None)
-
-
-
-import sys, os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import cv2
-import albumentations as A
-import numpy as np
-from actions_augumentation.convert_utils.convert import yolo_to_x1y1x2y2
-from uuid import uuid4
-from actions_augumentation.aug.core_aug import *
-from actions_augumentation.aug.engine import *
-
-def apply_aug_class(image, coordinate_yolo, names_class, listParams) -> list:
-    """
-    Применяет аугментации к изображениям для класса RGGHR.
     
-    Параметры:
-    image (np.ndarray): Исходное изображение.
-    coordinate_yolo (np.array): Координаты объектов в формате YOLO.
-    names_class (list): Список идентификаторов классов для аугментации.
-    
-    Возвращает:
-    list: Список с измененным изображением и координатами.
-    """
-    print(listParams)
-    result = image.copy()
-    target_coordinate = yolo_to_x1y1x2y2(coordinate_yolo, result.shape)
-    
-    for bbox in target_coordinate:
-
-        if int(bbox[0]) in names_class:
-        
-            _, x_min, y_min, x_max, y_max = bbox
-            cropped_image = image[y_min:y_max, x_min:x_max]
-
-            transform = A.Compose(
-                listParams
-            )
-    
-            result[y_min:y_max, x_min:x_max] = transform(image=cropped_image)["image"]
-
-    return [result, coordinate_yolo]
 
 
 
