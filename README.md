@@ -102,8 +102,8 @@
 ## При работе в приложении
 
 <div style="text-align: center;">
-    <img src="readme_image/welcome.png" alt="Logo" width="200" height="190">
     <p style="text-align: left;">- Приветственный экран</p>
+    <img src="readme_image/welcome.png" alt="Logo" width="400" height="390">
 </div>
 
 
@@ -115,7 +115,7 @@
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;">
-    <img src="readme_image/transport.png" alt="Logo" width="200" height="190">
+    <img src="readme_image/transport.png" alt="Logo" width="400" height="390">
 </div>
 
 
@@ -127,7 +127,7 @@
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;">
-    <img src="readme_image/brighets.png" alt="Logo" width="200" height="190">
+    <img src="readme_image/brighets.png" alt="Logo" width="400" height="390">
 </div>
 
 
