@@ -109,9 +109,9 @@
 
 
 
-<div style="display: flex; align-items: center;">
-    <img src="readme_image/tabel.png" alt="Logo" width="70" height="60" style="margin-right: 10px;">
-    <p style="text-align: left;">- Кнопка для перехода к списку с яркостными характеристиками, представленными в albumentations</p>
+<div style="display: flex; align-items: center; justify-content: center;">
+    <img src="readme_image/tabel.png" alt="Logo" width="70" height="60">
+    <p style="margin-left: 10px; text-align: left;">- Кнопка для перехода к списку с яркостными характеристиками, представленными в albumentations</p>
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;">
@@ -139,7 +139,7 @@
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;">
-    <img src="readme_image/user.png" alt="Logo" width="400" height="390">
+    <img src="readme_image/user.png" alt="Logo"  width="400" height="390">
 </div>
 
 
