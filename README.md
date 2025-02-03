@@ -123,7 +123,7 @@
 
 <div style="display: flex; align-items: center; justify-content: center;">
     <img src="readme_image/analys.png" alt="Logo" width="70" height="60">
-    <p style="margin-left: 10px; text-align: left;">- - Кнопка для перехода к списку транспортировочных характеристик, представленным в albumentations (ПОКА В ТЕСТЕ)</p>
+    <p style="margin-left: 10px; text-align: left;">- - Кнопка для перехода к списку транспортировочных характеристик, представленным в albumentations ###(ПОКА В ТЕСТЕ)</p>
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;">
@@ -135,7 +135,7 @@
 
 <div style="display: flex; align-items: center; justify-content: center;">
     <img src="readme_image/userLogo.png" alt="Logo" width="70" height="60">
-    <p style="margin-left: 10px; text-align: left;">- Кнопка для авторизации пользователя (ПОКА В ТЕСТЕ)</p>
+    <p style="margin-left: 10px; text-align: left;">- Кнопка для авторизации пользователя ###(ПОКА В ТЕСТЕ)</p>
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;">
