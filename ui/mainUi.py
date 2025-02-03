@@ -55,7 +55,8 @@ if __name__ == "__main__":
             #print(style)
             app.setStyleSheet(style)
     window = mainWindow()
-    window.setMinimumSize(800, 700)
+    window.setMinimumSize(800, 800)
+    window.setGeometry(350, 50, 800, 800)
     window.show()
     sys.exit(app.exec())
     

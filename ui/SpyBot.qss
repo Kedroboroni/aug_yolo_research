@@ -21,7 +21,6 @@ QLabel
 	background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(27, 39, 50, 255),stop:1 rgba(47, 53, 74, 255));;
 	color: black;
 	font-size: 13px;
-	border-radius: 13px;
 
 }
 
