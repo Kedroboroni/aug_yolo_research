@@ -106,6 +106,9 @@
     <p style="text-align: left;">- Приветственный экран</p>
 </div>
 
+
+
+
 <div style="display: flex; align-items: center; justify-content: center;">
     <img src="readme_image/tabel.png" alt="Logo" width="70" height="60">
     <p style="margin-left: 10px; text-align: left;">- Кнопка для перехода к списку с яркостными характеристиками, представленными в albumentations</p>
@@ -113,21 +116,30 @@
 
 <div style="display: flex; align-items: center; justify-content: center;">
     <img src="readme_image/transport.png" alt="Logo" width="200" height="190">
-    <p style="margin-left: 10px; text-align: left;">- Кнопка для перехода к списку с яркостными характеристиками, представленными в albumentations</p>
 </div>
 
-<div style="text-align: center;">
+
+
+
+<div style="display: flex; align-items: center; justify-content: center;">
     <img src="readme_image/analys.png" alt="Logo" width="70" height="60">
-    <br>
-    <img src="readme_image/brighets.png" alt="Logo" width="200" height="190">
-    <p style="text-align: left;">- Кнопка для перехода к списку транспортировочных характеристик, представленным в albumentations (ПОКА В ТЕСТЕ)</p>
+    <p style="margin-left: 10px; text-align: left;">- - Кнопка для перехода к списку транспортировочных характеристик, представленным в albumentations (ПОКА В ТЕСТЕ)</p>
 </div>
 
-<div style="text-align: center;">
+<div style="display: flex; align-items: center; justify-content: center;">
+    <img src="readme_image/brighets.png" alt="Logo" width="200" height="190">
+</div>
+
+
+
+
+<div style="display: flex; align-items: center; justify-content: center;">
     <img src="readme_image/userLogo.png" alt="Logo" width="70" height="60">
-    <br>
+    <p style="margin-left: 10px; text-align: left;">- Кнопка для авторизации пользователя (ПОКА В ТЕСТЕ)</p>
+</div>
+
+<div style="display: flex; align-items: center; justify-content: center;">
     <img src="readme_image/user.png" alt="Logo" width="200" height="190">
-    <p style="text-align: left;">- Кнопка для авторизации пользователя (ПОКА В ТЕСТЕ)</p>
 </div>
 
 
