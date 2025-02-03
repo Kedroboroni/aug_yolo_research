@@ -1,3 +1,13 @@
+<br />
+<div align="center">
+    <h3 align="center">Исследуй возможности аугументации! Найди лучшее для себя</h3>
+<img src="readme_image/logo.png" alt="Logo" width="150" height="190">
+  <p align="center">
+    <a href="https://t.me/KedrOboroni">Сообщи об ошибке!</a>
+  </p>
+</div>
+
+
 # README
 
 ## Описание проекта
@@ -87,3 +97,32 @@
    ```
 
 Теперь вы можете использовать приложение для работы с изображениями и их аугментацией, что позволит улучшить качество обучения моделей YOLO.
+
+
+## При работе в приложении
+
+<div align="center">
+<img src="readme_image\welcome.png" alt="Logo" width="200" height="190">
+    -Преветсвенный экран
+</div>
+
+<div align="center">
+<img src="readme_image\tabel.png" alt="Logo" width="200" height="190">
+<img src="readme_image\transport.png" alt="Logo" width="200" height="190">
+    - Кнопка для перехода к списку с яркостными характеристиками представленными в albumentations
+</div>
+
+<div align="center">
+<img src="readme_image\analys.png" alt="Logo" width="200" height="190">
+<img src="readme_image\brighets.png" alt="Logo" width="200" height="190">
+    - Кнопка для перехода к списку транспортировочными характеристиками представленными в albumentations ###(ПОКА В ТЕСЕТ)
+</div>
+
+<div align="center">
+<img src="readme_image\userLogo.png" alt="Logo" width="200" height="190">
+<img src="readme_image\user.png" alt="Logo" width="200" height="190">
+    - Кнопка для авторизации пользователя ###(ПОКА В ТЕСТЕ)
+</div>
+
+
+

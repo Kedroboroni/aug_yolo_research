@@ -44,7 +44,7 @@ class workSpaceWidget(QStackedWidget):
         self.addWidget(self.welcome()) #0
         self.addWidget(self.internal()) #1
         self.addWidget(self.external()) #2
-        self.addWidget(self.users()) #4
+        self.addWidget(self.users()) #3
 
 
 
