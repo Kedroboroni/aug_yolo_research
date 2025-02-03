@@ -101,27 +101,30 @@
 
 ## При работе в приложении
 
-<div align="center">
-<img src="readme_image\welcome.png" alt="Logo" width="200" height="190">
--Приветственный экран
+<div style="text-align: center;">
+    <img src="readme_image/welcome.png" alt="Logo" width="200" height="190">
+    <p style="text-align: left;">- Приветственный экран</p>
 </div>
 
-<div align="center">
-<img src="readme_image\tabel.png" alt="Logo" width="70" height="60">
-<img src="readme_image\transport.png" alt="Logo" width="200" height="190">
-- Кнопка для перехода к списку с яркостными характеристиками представленными в albumentations
+<div style="text-align: center;">
+    <img src="readme_image/tabel.png" alt="Logo" width="70" height="60">
+    <br>
+    <img src="readme_image/transport.png" alt="Logo" width="200" height="190">
+    <p style="text-align: left;">- Кнопка для перехода к списку с яркостными характеристиками, представленными в albumentations</p>
 </div>
 
-<div align="center">
-<img src="readme_image\analys.png" alt="Logo" width="70" height="60">
-<img src="readme_image\brighets.png" alt="Logo" width="200" height="190">
-- Кнопка для перехода к списку транспортировочными характеристиками представленными в albumentations ###(ПОКА В ТЕСЕТ)
+<div style="text-align: center;">
+    <img src="readme_image/analys.png" alt="Logo" width="70" height="60">
+    <br>
+    <img src="readme_image/brighets.png" alt="Logo" width="200" height="190">
+    <p style="text-align: left;">- Кнопка для перехода к списку транспортировочных характеристик, представленным в albumentations (ПОКА В ТЕСТЕ)</p>
 </div>
 
-<div align="center">
-<img src="readme_image\userLogo.png" alt="Logo" width="70" height="60">
-<img src="readme_image\user.png" alt="Logo" width="200" height="190">
-- Кнопка для авторизации пользователя ###(ПОКА В ТЕСТЕ)
+<div style="text-align: center;">
+    <img src="readme_image/userLogo.png" alt="Logo" width="70" height="60">
+    <br>
+    <img src="readme_image/user.png" alt="Logo" width="200" height="190">
+    <p style="text-align: left;">- Кнопка для авторизации пользователя (ПОКА В ТЕСТЕ)</p>
 </div>
 
 
