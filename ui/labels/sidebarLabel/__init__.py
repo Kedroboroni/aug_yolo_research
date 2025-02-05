@@ -5,7 +5,6 @@ from PySide6.QtWidgets import QVBoxLayout, QSpacerItem, QSizePolicy
 from PySide6.QtWidgets import QLabel, QVBoxLayout
 from PySide6.QtCore import Qt
 from buttons.sidebarButtons import userButton, tabelButton, dbButton, analysButton, reportButton
-#from widgets.workerSpaceWidget import workSpaceWidget
 
 
 

@@ -52,7 +52,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     with open(r"ui\SpyBot.qss", "r") as file:
             style = file.read()
-            #print(style)
             app.setStyleSheet(style)
     window = mainWindow()
     window.setMinimumSize(800, 800)

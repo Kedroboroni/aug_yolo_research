@@ -30,8 +30,8 @@ from events.internal.on_btnChange import *
 
 class workSpaceWidget(QStackedWidget):
     
-    dictParamsInternal = dictInternalAug_brightness_settings
-    dictParamsExternal = dictInternalAug_transform_settings #Переделать под yolo
+    dictParamsInternal = dictInternalAug_brightness_settings # Тут должен быть список названий вощмодных функций аугументации
+    dictParamsExternal = dictInternalAug_transform_settings # А сейчас тут словарь.
 
     def __init__(self):
         
@@ -81,12 +81,11 @@ class workSpaceWidget(QStackedWidget):
         scroll_layout = QVBoxLayout(scroll_widget)
 
         self.status_ChecBox = {}
-        self.listParams = []
+        #self.listParams = []
 
-        for key, item in self.dictParamsInternal.items():
+        for key, item in self.dictParamsInternal.items(): # убрать item, переописать под список, все равно тут словарь не нужен
             checkBox = QCheckBox(text=key)
             self.status_ChecBox[key] = checkBox
-            #self.listParams.append[item] !!!!Невозможно добавть функцию в список!!!!
             scroll_layout.addWidget(checkBox)
             
 
@@ -125,7 +124,6 @@ class workSpaceWidget(QStackedWidget):
         for key, item in self.dictParamsExternal.items():
             checkBox = QCheckBox(text=key)
             self.status_ChecBox_external[key] = checkBox
-            #self.listParams_external.append[item]
             scroll_layout.addWidget(checkBox)
 
         scroll.setWidget(scroll_widget)
@@ -269,8 +267,6 @@ class workSpaceWidget(QStackedWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         widget.setLayout(layout)
         layout.setAlignment(Qt.AlignCenter)
-
-        #Создать условие для входа пользователя if asda= das 
 
         LOGIN = QLineEdit()
         LOGIN.setFixedSize(250,50)
