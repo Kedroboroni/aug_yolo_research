@@ -24,10 +24,12 @@ class sidebarLabel(QLabel):
         self.btnTabel = tabelButton.tabelButton()
         self.btnAnalys = analysButton.analysButton()
         self.btnUser = userButton.userButton()
+        self.btnYolo = reportButton.reportButton()
         self.spacer = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         layout.addWidget(self.btnTabel)
         layout.addWidget(self.btnAnalys)
+        layout.addWidget(self.btnYolo)
         layout.addItem(self.spacer)
         layout.addWidget(self.btnUser)
         layout.setAlignment(Qt.AlignCenter)

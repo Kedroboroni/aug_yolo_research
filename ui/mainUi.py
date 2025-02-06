@@ -42,7 +42,8 @@ class mainWindow(QMainWindow):
          
         self.sidebarWidget.label.btnTabel.clicked.connect(lambda: self.workerSpaceWidget.setCurrentIndex(1))
         self.sidebarWidget.label.btnAnalys.clicked.connect(lambda: self.workerSpaceWidget.setCurrentIndex(2))
-        self.sidebarWidget.label.btnUser.clicked.connect(lambda:  self.workerSpaceWidget.setCurrentIndex(3))
+        self.sidebarWidget.label.btnYolo.clicked.connect(lambda: self.workerSpaceWidget.setCurrentIndex(3))
+        self.sidebarWidget.label.btnUser.clicked.connect(lambda:  self.workerSpaceWidget.setCurrentIndex(4))
 
 
 

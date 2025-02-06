@@ -17,7 +17,6 @@ from actions_augumentation.aug.core_aug import read_yolo_annotations
 from actions_augumentation.aug.entites_aug import *
 
 
-#31
 
 
 def on_btnStart(queue, path, listKeys):
@@ -28,8 +27,7 @@ def on_btnStart(queue, path, listKeys):
     
     listParams = []
     for key in listKeys:
-        listParams.append(d1[key]) # В этом словре должны быть сразу указаны дефолтные настройки каждой функции
-    # Стандартные папраметры должны быть как-то выненесены и нежестко фиксированы через управление интерфесом. КАКАКАКАК?!?!?!??!
+        listParams.append(dictInternalAug_brightness_and_transform_settings[key]) 
     for current_step, name_object in enumerate(obects_in_directory):
 
         if name_object.endswith('.txt'):
@@ -55,12 +53,3 @@ def on_btnStart(queue, path, listKeys):
     percentage = 0  
     queue.put(None)
     
-
-
-
-
-if __name__ == "__main__":
-
-    print(intMax)
-    intMax +=1
-    print(intMax)

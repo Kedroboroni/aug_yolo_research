@@ -32,7 +32,7 @@ from ui.checkBox import checkBox
 class workSpaceWidget(QStackedWidget):
     
     dictParamsInternal = dictInternalAug_brightness_settings # Тут должен быть список названий вощмодных функций аугументации
-    dictParamsExternal = d1 # А сейчас тут словарь.
+    dictParamsInternalTransform = dictInternalAug_transform_settings # А сейчас тут словарь.
 
     def __init__(self):
         
@@ -44,6 +44,7 @@ class workSpaceWidget(QStackedWidget):
          
         self.addWidget(self.welcome()) #0
         self.addWidget(self.internal()) #1
+        self.addWidget(self.transport())
         self.addWidget(self.external()) #2
         self.addWidget(self.users()) #3
 
@@ -82,7 +83,6 @@ class workSpaceWidget(QStackedWidget):
         scroll_layout = QVBoxLayout(scroll_widget)
 
         self.status_ChecBox = {}
-        #self.listParams = []
 
         for key, item in self.dictParamsInternal.items(): # убрать item, переописать под список, все равно тут словарь не нужен
             self.checkBox = checkBox(text = key)
@@ -104,13 +104,13 @@ class workSpaceWidget(QStackedWidget):
         return widget
     
 
-    def external(self):
+    def transport(self):
          
         widget = QWidget()
         layout = QVBoxLayout(widget)
 
-        self.boxChange_external = groupBoxChange()
-        self.boxChange_external.btnChange.clicked.connect(lambda: openDirectory(self.boxChange_external.lineEdit))
+        self.boxChange_transform = groupBoxChange()
+        self.boxChange_transform.btnChange.clicked.connect(lambda: openDirectory(self.boxChange_transform.lineEdit))
 
         scroll = QScrollArea()
         scroll.setMinimumSize(QSize(512, 512))
@@ -119,27 +119,35 @@ class workSpaceWidget(QStackedWidget):
         scroll_widget = QWidget()
         scroll_layout = QVBoxLayout(scroll_widget)
 
-        self.status_ChecBox_external = {}
-        self.listParams_external = []
+        self.status_ChecBox_transform = {}
+        self.listParams_transform = []
 
-        for key, item in self.dictParamsExternal.items():
+        for key, item in self.dictParamsInternalTransform.items():
             self.checkBox = checkBox(text=key)
-            self.status_ChecBox_external[key] = self.checkBox
+            self.status_ChecBox_transform[key] = self.checkBox
             scroll_layout.addWidget(self.checkBox)
 
         scroll.setWidget(scroll_widget)
 
-        self.btnStart_external = QPushButton("Начать аугументацию по выбранным функциям и параметрам")
-        self.btnStart_external.clicked.connect(self.on_btnStart_trasform)
+        self.btnStart_transform = QPushButton("Начать аугументацию по выбранным функциям и параметрам")
+        self.btnStart_transform.clicked.connect(self.on_btnStart_transform)
 
-        layout.addWidget(self.boxChange_external)
+        layout.addWidget(self.boxChange_transform)
         layout.addWidget(scroll)
-        layout.addWidget(self.btnStart_external)     
+        layout.addWidget(self.btnStart_transform)     
 
-        self.process_running_external = False
+        self.process_running_transform = False
 
         return widget
     
+
+    def external(self):
+
+        widget = QWidget()
+        layout = QVBoxLayout(widget)
+
+        return widget
+
 
     def on_btnStart_brightness_settings(self):
 
@@ -201,39 +209,39 @@ class workSpaceWidget(QStackedWidget):
                 
 
 
-    def on_btnStart_trasform(self):
+    def on_btnStart_transform(self):
 
-        path_external = rf"{self.boxChange_external.lineEdit.text()}"
+        path_external = rf"{self.boxChange_transform.lineEdit.text()}"
 
-        select_box_external = {
+        select_box_transform = {
             key: item
-            for key, item in self.status_ChecBox_external.items()
-            if self.status_ChecBox_external[key].isChecked()
+            for key, item in self.status_ChecBox_transform.items()
+            if self.status_ChecBox_transform[key].isChecked()
         }
 
-        listKeys_func_external = list(select_box_external.keys())
+        listKeys_func_transform = list(select_box_transform.keys())
 
         text = f"<b>Ваши выбранные функции:</b> <br>  {
-            "<br>".join(select_box_external.keys())
+            "<br>".join(select_box_transform.keys())
         }"
         
-        if path_external and select_box_external:
-            self.msg_external = dialogWindow(text)        
-            self.msg_external.show()
+        if path_external and select_box_transform:
+            self.msg_transform = dialogWindow(text)        
+            self.msg_transform.show()
 
-            if not self.process_running_external:
-                self.process_running_external = True
-                self.msg_external.progressBar.setValue(0)
-                self.btnStart_external.setDisabled(True)
-                self.thread_external = ProcessThread(path_external, listKeys_func_external)
-                self.thread_external.progress.connect(self.msg_external.update_progress_bar)
-                self.thread_external.finished.connect(self.msg_external.update_progress_bar)
-                self.thread_external.finished.connect(lambda: self.btnStart_external.setEnabled(True))
-                self.thread_external.finished.connect(lambda: setattr(self, 'process_running', False))
-                self.thread_external.done.connect(self.msg_external.close)
-                self.thread_external.start()
+            if not self.process_running_transform:
+                self.process_running_tranmsform = True
+                self.msg_transform.progressBar.setValue(0)
+                self.btnStart_transform.setDisabled(True)
+                self.thread_transform = ProcessThread(path_external, listKeys_func_transform)
+                self.thread_transform.progress.connect(self.msg_transform.update_progress_bar)
+                self.thread_transform.finished.connect(self.msg_transform.update_progress_bar)
+                self.thread_transform.finished.connect(lambda: self.btnStart_transform.setEnabled(True))
+                self.thread_transform.finished.connect(lambda: setattr(self, 'process_running', False))
+                self.thread_transform.done.connect(self.msg_transform.close)
+                self.thread_transform.start()
 
-        elif select_box_external:
+        elif select_box_transform:
             messageError = QMessageBox(text = "Укажите путь!")
             messageError.setWindowTitle("Ошибка")
             messageError.setIcon(QMessageBox.Warning)

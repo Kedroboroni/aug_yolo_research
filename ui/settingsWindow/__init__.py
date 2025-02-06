@@ -24,8 +24,8 @@ class settingsWindow(QDialog):
         
         # Создаем элементы интерфейса
         self.layout = QVBoxLayout()
-        self.label = QLabel("Введите параметры:")
-        self.input_field = QLineEdit()
+        self.label = QLabel("Пока в разработке")
+        self.input_field = QComboBox()
         self.ok_button = QPushButton("OK")
         
         # Добавляем элементы в макет

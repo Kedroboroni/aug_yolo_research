@@ -1,10 +1,18 @@
 from functools import partial
 from albumentations import *
+import cv2
+# Тут будет импорт yaml файла с параметрами
+
+#В yaml файле будем хранить парметры, при вызове какой-то настройки будем пересохранять этот файл
+#А в словаре  через partial argfun = парметр ипортированный из yaml
+#Осталоьс только найти дурака который все это напишет! Ах да он напртив монитора)0))00)
+#Там где будут списки - будет выпадать список, все остальное вводится через QLineEdit
+#После нажтия ok парметры переcохраняются в yaml
 
 
-#Affine(scale, translate_percent, )
+
 dictInternalAug_brightness_and_transform_settings = {
-    "Affine": Affine,
+    "Affine": Affine, 
     "AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
     "BBoxSafeRandomCrop": BBoxSafeRandomCrop,
     "CenterCrop": CenterCrop,
@@ -174,7 +182,7 @@ dictInternalAug_brightness_settings = {
     "UnsharpMask": UnsharpMask,
     "ZoomBlur": ZoomBlur,
 }
-
+# делаем словарь ерез partial(fun, arg1 = funarg1, arg2 = funarg2)
 dictInternalAug_transform_settings = {
     "Affine": Affine,
     "AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
@@ -198,7 +206,6 @@ dictInternalAug_transform_settings = {
     "Morphological": Morphological,
     "NoOp": NoOp,
     "OpticalDistortion": OpticalDistortion,
-    "OverlayElements": OverlayElements,
     "Pad": Pad,
     "PadIfNeeded": PadIfNeeded,
     "Perspective": Perspective,
@@ -224,16 +231,6 @@ dictInternalAug_transform_settings = {
     "Transpose": Transpose,
     "VerticalFlip": VerticalFlip,
     "XYMasking": XYMasking,
-}
-
-
-
-intMin = 8
-intMax = 10
-magnitude = 10
-
-d1 = {
-    "GridElasticDeform" :partial(GridElasticDeform, num_grid_xy=[intMin,intMax], magnitude= magnitude)
 }
 
 
