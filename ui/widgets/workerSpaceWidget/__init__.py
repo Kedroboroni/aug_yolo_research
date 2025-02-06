@@ -22,16 +22,17 @@ from processes.process_aug import *
 from dictsParams import *
 from groupBoxChange import groupBoxChange
 from events.internal.on_btnChange import *
+from ui.checkBox import checkBox
 
 
 
-
+#34
 
 
 class workSpaceWidget(QStackedWidget):
     
     dictParamsInternal = dictInternalAug_brightness_settings # Тут должен быть список названий вощмодных функций аугументации
-    dictParamsExternal = dictInternalAug_transform_settings # А сейчас тут словарь.
+    dictParamsExternal = d1 # А сейчас тут словарь.
 
     def __init__(self):
         
@@ -84,9 +85,9 @@ class workSpaceWidget(QStackedWidget):
         #self.listParams = []
 
         for key, item in self.dictParamsInternal.items(): # убрать item, переописать под список, все равно тут словарь не нужен
-            checkBox = QCheckBox(text=key)
-            self.status_ChecBox[key] = checkBox
-            scroll_layout.addWidget(checkBox)
+            self.checkBox = checkBox(text = key)
+            self.status_ChecBox[key] = self.checkBox
+            scroll_layout.addWidget(self.checkBox)
             
 
         scroll.setWidget(scroll_widget)
@@ -122,9 +123,9 @@ class workSpaceWidget(QStackedWidget):
         self.listParams_external = []
 
         for key, item in self.dictParamsExternal.items():
-            checkBox = QCheckBox(text=key)
-            self.status_ChecBox_external[key] = checkBox
-            scroll_layout.addWidget(checkBox)
+            self.checkBox = checkBox(text=key)
+            self.status_ChecBox_external[key] = self.checkBox
+            scroll_layout.addWidget(self.checkBox)
 
         scroll.setWidget(scroll_widget)
 
