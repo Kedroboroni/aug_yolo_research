@@ -182,7 +182,7 @@ dictInternalAug_brightness_settings = {
     "UnsharpMask": UnsharpMask,
     "ZoomBlur": ZoomBlur,
 }
-# делаем словарь ерез partial(fun, arg1 = funarg1, arg2 = funarg2)
+# делаем словарь ерез partial(fun, *class(Affine)]), оставляем только параметр p
 dictInternalAug_transform_settings = {
     "Affine": Affine,
     "AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
@@ -202,60 +202,40 @@ dictInternalAug_transform_settings = {
     "GridElasticDeform": GridElasticDeform,
     "HorizontalFlip": HorizontalFlip,
     "LongestMaxSize": LongestMaxSize,
-    "MaskDropout": MaskDropout,
     "Morphological": Morphological,
     "NoOp": NoOp,
     "OpticalDistortion": OpticalDistortion,
     "Pad": Pad,
-    "PadIfNeeded": PadIfNeeded,
     "Perspective": Perspective,
-    "PiecewiseAffine": PiecewiseAffine,
     "PixelDropout": PixelDropout,
     "RandomCrop": RandomCrop,
-    "RandomCropFromBorders": RandomCropFromBorders,
-    "RandomCropNearBBox": RandomCropNearBBox,
-    "RandomGridShuffle": RandomGridShuffle,
-    "RandomResizedCrop": RandomResizedCrop,
     "RandomRotate90": RandomRotate90,
-    "RandomScale": RandomScale,
-    "RandomSizedBBoxSafeCrop": RandomSizedBBoxSafeCrop,
-    "RandomSizedCrop": RandomSizedCrop,
     "Resize": Resize,
     "Rotate": Rotate,
-    "SafeRotate": SafeRotate,
-    "ShiftScaleRotate": ShiftScaleRotate,
-    "SmallestMaxSize": SmallestMaxSize,
     "ThinPlateSpline": ThinPlateSpline,
     "TimeMasking": TimeMasking,
     "TimeReverse": TimeReverse,
     "Transpose": Transpose,
     "VerticalFlip": VerticalFlip,
-    "XYMasking": XYMasking,
 }
 
-
-
-# в это ловаре смотри внимательно параметры, они указаны не правильно...
 dictParamsAug_Yolo = {
-    "epochs": [1, 2, 5, 10, 20, 50, 100],  # Количество эпох
-    "batch_size": [1, 2, 4, 8, 16, 32, 64],  # Размер батча
-    "learning_rate": [0.001, 0.01, 0.1, 0.0001],  # Скорость обучения
-    "img_size": [320, 416, 512, 608, 640],  # Размер изображения
-    "data_augmentation": [True, False],  # Использовать ли аугментацию данных
-    "optimizer": ["SGD", "Adam", "RMSprop"],  # Оптимизатор
-    "momentum": [0.0, 0.5, 0.9, 0.99],  # Моментум для SGD
-    "weight_decay": [0.0, 0.0001, 0.001],  # Регуляризация L2
-    "pretrained": [True, False],  # Использовать ли предобученные веса
-    "checkpoint": [True, False],  # Сохранять ли контрольные точки
-    "class_names": ["coco", "custom"],  # Названия классов
-
-    # Параметры аугментации
-    "flip": [True, False],  # Отражение изображения по горизонтали
-    "rotate": [i for i in range(0,361, 12)],  # Угол поворота изображения
-    "scale": [0.5, 1.0, 1.5, 2.0],  # Масштабирование изображения
-    "translate": [0, 10, 20],  # Сдвиг изображения по осям
-    "brightness": [0.0, 0.5, 1.0, 1.5],  # Яркость изображения
-    "contrast": [0.0, 0.5, 1.0, 1.5],  # Контрастность изображения
-    "saturation": [0.0, 0.5, 1.0, 1.5],  # Насыщенность изображения
-    "hue": [-0.1, 0.0, 0.1],  # Оттенок изображения
+    "hsv_h": [i / 10.0 for i in range(0, 11)],  
+    "hsv_s": [i / 10.0 for i in range(0, 11)],  
+    "hsv_v": [i / 10.0 for i in range(0, 11)],  
+    "degrees": range(-180, 181, 10),  
+    "translate": [i / 10.0 for i in range(0, 11)], 
+    "scale": [i / 10.0 for i in range(0, 21)], 
+    "shear": range(-180, 181, 10), 
+    "perspective": [i / 1000.0 for i in range(0, 2)], 
+    "flipud": [i / 10.0 for i in range(0, 11)],  
+    "fliplr": [i / 10.0 for i in range(0, 11)], 
+    "bgr": [i / 10.0 for i in range(0, 11)], 
+    "mosaic": [i / 10.0 for i in range(0, 11)], 
+    "mixup": [i / 10.0 for i in range(0, 11)],  
+    "copy_paste": [i / 10.0 for i in range(0, 11)],  
+    "copy_paste_mode": None,  
+    "auto_augment": None,  
+    "erasing": [i / 10.0 for i in range(0, 9)],  
+    "crop_fraction": [i / 10.0 for i in range(1, 11)],  
 }

@@ -23,13 +23,15 @@ class checkBox(QCheckBox):
     def __init__(self, text):
         super().__init__(text)
         self.name_fun = text
+
+
     def mousePressEvent(self, event):
         
         if event.button() == Qt.LeftButton:
             self.setChecked(not self.isChecked())  
 
         elif event.button() == Qt.RightButton:
-            settings = settingsWindow(f"Настройки {self.name_fun}")
+            settings = settingsWindow(self.name_fun)
             settings.exec_()
             
         
