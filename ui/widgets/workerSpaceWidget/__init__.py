@@ -34,6 +34,9 @@ class workSpaceWidget(QStackedWidget):
     dictParamsInternal = dictInternalAug_brightness_settings # Тут должен быть список названий вощмодных функций аугументации
     dictParamsInternalTransform = dictInternalAug_transform_settings # А сейчас тут словарь.
     dictParamsExternal = dictParamsAug_Yolo
+    dictParams = {}
+    dictParams_transform = {}
+    dictParams_external = {}
 
     def __init__(self):
         
@@ -85,8 +88,9 @@ class workSpaceWidget(QStackedWidget):
 
         self.status_ChecBox = {}
 
-        for key, item in self.dictParamsInternal.items(): # убрать item, переописать под список, все равно тут словарь не нужен
+        for key, item in self.dictParamsInternal.items():
             self.checkBox = checkBox(text = key)
+            self.checkBox.tunnel_signal.connect(self.updateParams_brighets)
             self.status_ChecBox[key] = self.checkBox
             scroll_layout.addWidget(self.checkBox)
             
@@ -124,9 +128,10 @@ class workSpaceWidget(QStackedWidget):
         self.listParams_transform = []
 
         for key, item in self.dictParamsInternalTransform.items():
-            self.checkBox = checkBox(text = key)
-            self.status_ChecBox_transform[key] = self.checkBox
-            scroll_layout.addWidget(self.checkBox)
+            self.checkBox_transform = checkBox(text = key)
+            self.checkBox_transform.tunnel_signal.connect(self.updateParams_transform)
+            self.status_ChecBox_transform[key] = self.checkBox_transform
+            scroll_layout.addWidget(self.checkBox_transform)
 
         scroll.setWidget(scroll_widget)
 
@@ -161,9 +166,9 @@ class workSpaceWidget(QStackedWidget):
         self.listParams_external = []
 
         for key, item in self.dictParamsExternal.items():
-            self.checkBox = checkBox(text=key)
-            self.status_ChecBox_external[key] = self.checkBox
-            scroll_layout.addWidget(self.checkBox)
+            self.checkBox_external = checkBox(text=key)
+            self.status_ChecBox_external[key] = self.checkBox_external
+            scroll_layout.addWidget(self.checkBox_external)
 
         scroll.setWidget(scroll_widget)
 
@@ -177,6 +182,18 @@ class workSpaceWidget(QStackedWidget):
         self.process_running_external = False
 
         return widget
+
+
+    def updateParams_brighets(self, name, value):
+
+        self.dictParams[name] = partial(self.dictParamsInternalTransform[name], *value)
+        print(f"Обновили параметры: {self.dictParams}")
+
+
+    def updateParams_transform(self, name, value):
+
+        self.dictParams_transform[name] = partial(self.dictParamsInternalTransform[name], *value)
+        print(f"Обновили параметры: {self.dictParams_transform}")
 
 
     def on_btnStart_brightness_settings(self):
@@ -202,7 +219,7 @@ class workSpaceWidget(QStackedWidget):
                 self.process_running = True
                 self.msg.progressBar.setValue(0)
                 self.btnStart.setDisabled(True)
-                self.thread = ProcessThread(path, listKeys_func)
+                self.thread = ProcessThread(path, listKeys_func, self.dictParams)
                 self.thread.progress.connect(self.msg.update_progress_bar)
                 self.thread.finished.connect(self.msg.update_progress_bar)
                 self.thread.finished.connect(lambda: self.btnStart.setEnabled(True))
@@ -238,7 +255,6 @@ class workSpaceWidget(QStackedWidget):
             return
                 
 
-
     def on_btnStart_transform(self):
 
         path_external = rf"{self.boxChange_transform.lineEdit.text()}"
@@ -263,7 +279,7 @@ class workSpaceWidget(QStackedWidget):
                 self.process_running_tranmsform = True
                 self.msg_transform.progressBar.setValue(0)
                 self.btnStart_transform.setDisabled(True)
-                self.thread_transform = ProcessThread(path_external, listKeys_func_transform)
+                self.thread_transform = ProcessThread(path_external, listKeys_func_transform, self.dictParams_transform)
                 self.thread_transform.progress.connect(self.msg_transform.update_progress_bar)
                 self.thread_transform.finished.connect(self.msg_transform.update_progress_bar)
                 self.thread_transform.finished.connect(lambda: self.btnStart_transform.setEnabled(True))
@@ -297,7 +313,7 @@ class workSpaceWidget(QStackedWidget):
             messageError.exec_()
 
             return
-
+        
 
     def on_btnStart_external(self):
 

@@ -19,7 +19,7 @@ from actions_augumentation.aug.entites_aug import *
 
 
 
-def on_btnStart(queue, path, listKeys):
+def on_btnStart(queue, path, listKeys, dictParams):
 
     obects_in_directory = os.listdir(path)
     total_steps = int(len(obects_in_directory)/2)
@@ -27,7 +27,11 @@ def on_btnStart(queue, path, listKeys):
     
     listParams = []
     for key in listKeys:
-        listParams.append(dictInternalAug_brightness_and_transform_settings[key]) 
+        if key in dictParams:
+            listParams.append(dictParams[key])
+        else:
+            listParams.append(dictInternalAug_brightness_and_transform_settings[key])
+
     for current_step, name_object in enumerate(obects_in_directory):
 
         if name_object.endswith('.txt'):

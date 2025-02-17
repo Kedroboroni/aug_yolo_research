@@ -1,4 +1,3 @@
-import time
 import sys, os
 sys.path.append(os.path.dirname(
         os.path.dirname(
@@ -11,53 +10,117 @@ sys.path.append(os.path.dirname(
     )
 )
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-from PySide6.QtWidgets import QDialog, QPushButton, QScrollBar, QComboBox, QVBoxLayout, QScrollArea, QLabel, QLineEdit
-from PySide6.QtCore import QSize, Qt
+from PySide6.QtWidgets import QDialog, QPushButton, QWidget, QComboBox, QVBoxLayout, QMessageBox, QLabel, QLineEdit, QHBoxLayout
+from PySide6.QtCore import QSize, Signal
 from dictsParams.manageParams import manageParams
-import dictsParams
+from slider import slider
 
-#Тут в класе мы должны получать с какой функцией работаем, какие настройки должно вывести окно..
+
+
+
+
 class settingsWindow(QDialog):
     size = QSize(500, 170)
+    right_button_clicked = Signal(str, list)
 
-            #Размещаем компоненты настроек по имении функции
-            #Для разнх-ых параметров (типов данных у них, размещаем разные widgets)
-
-            
     def __init__(self, name_fun):
-        !!!!! Добавть кнопку отмена, сделать собитие по нажатию отмена, опситаь событие по нажатию ок(применения настроек)
         super().__init__()
+        self.name_fun = name_fun
         self.setWindowTitle(f"Настройки {name_fun}")
-        
         self.layout = QVBoxLayout()
 
-        self.label = QLabel("Пока в разработке")
+        self.value_widgets = []
         tuple_params = manageParams(name_fun).get_params()
+
         for obj in tuple_params:
-            !!!! добавить условия по добавлению различных типов джанных, если выбор из мин макс, то скролл бар, если из ограниченного набора, то выпад список,
-            !!!! если диапазона то два ввода.
-            После нажатичя на ок параметры сохраняются!!! в этом окне под новым классов manageParams, чтобы дальше передать их в partial
-
-            if len(obj) >2:
-            
-                self.comboBox = QComboBox()
+            if len(obj) > 2:
+                comboBox = QComboBox()
                 for item in obj:
-                    self.comboBox.addItem(f"{item}")
-                #self.comboBox.addItems(obj)
-                self.layout.addWidget(self.comboBox)
+                    comboBox.addItem(f"{item}")
+                self.value_widgets.append(comboBox)
+                self.layout.addWidget(comboBox)
 
-            else:
-                self.widget = QPushButton(f"{obj}")
-                self.layout.addWidget(self.widget)
+            elif type(obj[0]) == bool:
+                lineEdit_bool = QLineEdit("bool")
+                self.value_widgets.append(lineEdit_bool)
+                self.layout.addWidget(lineEdit_bool)
+
+            elif len(obj) == 2 and obj[1] in ["int", "float"]:
+                if obj[1] == "int":
+                    lineEdit_min = QLineEdit(f"int min -> {obj[0][0]}")
+                    lineEdit_max = QLineEdit(f"int max -> {obj[0][1]}")
+
+                elif obj[1] == "float":
+                    lineEdit_min = QLineEdit(f"float min -> {obj[0][0]}")
+                    lineEdit_max = QLineEdit(f"float max -> {obj[0][1]}")
+
+                widget_lineEdit = QWidget()
+                layoutLine = QHBoxLayout()
+                layoutLine.addWidget(lineEdit_min)
+                layoutLine.addWidget(lineEdit_max)
+                widget_lineEdit.setLayout(layoutLine)
+                self.layout.addWidget(widget_lineEdit)
+                tuple_value = (lineEdit_min, lineEdit_max)
+                self.value_widgets.append(tuple_value)
+                #tuple_value = ()
+
+            elif len(obj) == 2:
+                step = obj[1] / 100
+                slider_widget = slider(obj[0], obj[1], step)
+                self.value_widgets.append(slider_widget)
+                self.layout.addWidget(slider_widget)
+
+    
 
         self.ok_button = QPushButton("OK")
-        
-        # Добавляем элементы в макет
-        self.layout.addWidget(self.label)
-        #self.layout.addWidget(self.input_field)
         self.layout.addWidget(self.ok_button)
-        
         self.setLayout(self.layout)
 
-        # Подключаем сигнал кнопки
         self.ok_button.clicked.connect(self.accept)
+
+
+    def getValues(self):
+        values = {}
+        for widget in self.value_widgets:
+            if isinstance(widget, QComboBox):
+                try:
+                    values[widget] = int(widget.currentText())
+                except ValueError:
+                    values[widget] = str(widget.currentText())
+
+            elif isinstance(widget, slider):
+                values[widget] = int(widget.getCurrentValue())
+
+            elif isinstance(widget, tuple):
+                values[widget] = (int(widget[0].text()), int(widget[1].text()))
+                #values[widget[1]] = int(widget[1].text())
+
+            elif isinstance(widget, QLineEdit):
+                if widget.text() == "False":
+                    values[widget] = False
+                if widget.text() == "True":
+                    values[widget] = True
+
+        return values
+
+
+    def accept(self):
+        try:
+            self.valuesParams = tuple(self.getValues().values())
+        except ValueError:
+            messageError = QMessageBox(text = "Укажит верный формат!")
+            messageError.setWindowTitle("Ошибка")
+            messageError.setIcon(QMessageBox.Warning)
+            messageError.setStandardButtons(QMessageBox.Ok)
+            messageError.exec_()
+            return
+        
+        super().accept()
+        self.right_button_clicked.emit(self.name_fun, self.valuesParams)
+
+
+
+
+
+
+
