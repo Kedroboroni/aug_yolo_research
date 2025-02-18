@@ -1,6 +1,7 @@
 from functools import partial
 from albumentations import *
 import cv2
+import os; os.environ['NO_ALBUMENTATIONS_UPDATE'] = '1'
 # Тут будет импорт yaml файла с параметрами
 
 #В yaml файле будем хранить парметры, при вызове какой-то настройки будем пересохранять этот файл
@@ -220,22 +221,22 @@ dictInternalAug_transform_settings = {
 }
 
 dictParamsAug_Yolo = {
-    "hsv_h": [i / 10.0 for i in range(0, 11)],  
-    "hsv_s": [i / 10.0 for i in range(0, 11)],  
-    "hsv_v": [i / 10.0 for i in range(0, 11)],  
-    "degrees": range(-180, 181, 10),  
-    "translate": [i / 10.0 for i in range(0, 11)], 
-    "scale": [i / 10.0 for i in range(0, 21)], 
-    "shear": range(-180, 181, 10), 
-    "perspective": [i / 1000.0 for i in range(0, 2)], 
-    "flipud": [i / 10.0 for i in range(0, 11)],  
-    "fliplr": [i / 10.0 for i in range(0, 11)], 
-    "bgr": [i / 10.0 for i in range(0, 11)], 
-    "mosaic": [i / 10.0 for i in range(0, 11)], 
-    "mixup": [i / 10.0 for i in range(0, 11)],  
-    "copy_paste": [i / 10.0 for i in range(0, 11)],  
-    "copy_paste_mode": None,  
-    "auto_augment": None,  
-    "erasing": [i / 10.0 for i in range(0, 9)],  
-    "crop_fraction": [i / 10.0 for i in range(1, 11)],  
+    "hsv_h": 0.015,  
+    "hsv_s": 0.7,  
+    "hsv_v": 0.4,  
+    "degrees": 0.0,  
+    "translate": 0.1, 
+    "scale": 0.5, 
+    "shear": 0.0, 
+    "perspective": 0.0, 
+    "flipud": 0.0,  
+    "fliplr": 0.5, 
+    "bgr": 0.0, 
+    "mosaic": 1.0, 
+    "mixup": 0.0,  
+    "copy_paste": 0.0,  
+    "copy_paste_mode": "flip",  
+    "auto_augment": "randaugment",  
+    "erasing": 0.4,  
+    "crop_fraction": 1.0,  
 }

@@ -1,8 +1,6 @@
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from PySide6.QtWidgets import QTabWidget, QWidget, QComboBox, QHBoxLayout, QVBoxLayout
-from matplotlib.backends.backend_qt5agg import FigureCanvas
-from matplotlib.figure import Figure
 from tabels import tabel1
 
 

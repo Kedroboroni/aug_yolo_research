@@ -1,7 +1,5 @@
-
 import cv2
 
-import albumentations as a
 
 
 
@@ -65,146 +63,44 @@ class manageParams:
             return self.Pad()
         elif self.name_fun == "Perspective":
             return self.Perspective()
-        elif self.name_fun == "PixelDropout":
-            return self.PixelDropout()
-        elif self.name_fun == "RandomCrop":
-            return self.RandomCrop()
-        elif self.name_fun == "RandomRotate90":
-            return self.RandomRotate90()
-        elif self.name_fun == "Resize":
-            return self.Resize()
-        elif self.name_fun == "Rotate":
-            return self.Rotate()
         elif self.name_fun == "ThinPlateSpline":
             return self.ThinPlateSpline()
-        elif self.name_fun == "TimeMasking":
-            return self.TimeMasking()
-        elif self.name_fun == "TimeReverse":
-            return self.TimeReverse()
-        elif self.name_fun == "Transpose":
-            return self.Transpose()
-        elif self.name_fun == "VerticalFlip":
-            return self.VerticalFlip()
-        elif self.name_fun == "AdditiveNoise":
-            return self.AdditiveNoise()
-        elif self.name_fun == "AdvancedBlur":
-            return self.AdvancedBlur()
-        elif self.name_fun == "AutoContrast":
-            return self.AutoContrast()
-        elif self.name_fun == "Blur":
-            return self.Blur()
-        elif self.name_fun == "CLAHE":
-            return self.CLAHE()
-        elif self.name_fun == "ChannelDropout":
-            return self.ChannelDropout()
-        elif self.name_fun == "ChannelShuffle":
-            return self.ChannelShuffle()
-        elif self.name_fun == "ChromaticAberration":
-            return self.ChromaticAberration()
-        elif self.name_fun == "ColorJitter":
-            return self.ColorJitter()
-        elif self.name_fun == "Defocus":
-            return self.Defocus()
-        elif self.name_fun == "Downscale":
-            return self.Downscale()
-        elif self.name_fun == "Emboss":
-            return self.Emboss()
-        elif self.name_fun == "Equalize":
-            return self.Equalize()
-        elif self.name_fun == "FDA":
-            return self.FDA()
-        elif self.name_fun == "FancyPCA":
-            return self.FancyPCA()
-        elif self.name_fun == "FromFloat":
-            return self.FromFloat()
-        elif self.name_fun == "GaussNoise":
-            return self.GaussNoise()
-        elif self.name_fun == "GaussianBlur":
-            return self.GaussianBlur()
-        elif self.name_fun == "GlassBlur":
-            return self.GlassBlur()
-        elif self.name_fun == "HEStain":
-            return self.HEStain()
-        elif self.name_fun == "HistogramMatching":
-            return self.HistogramMatching()
-        elif self.name_fun == "HueSaturationValue":
-            return self.HueSaturationValue()
-        elif self.name_fun == "ISONoise":
-            return self.ISONoise()
-        elif self.name_fun == "Illumination":
-            return self.Illumination()
-        elif self.name_fun == "ImageCompression":
-            return self.ImageCompression()
-        elif self.name_fun == "InvertImg":
-            return self.InvertImg()
-        elif self.name_fun == "MedianBlur":
-            return self.MedianBlur()
-        elif self.name_fun == "MotionBlur":
-            return self.MotionBlur()
-        elif self.name_fun == "MultiplicativeNoise":
-            return self.MultiplicativeNoise()
-        elif self.name_fun == "Normalize":
-            return self.Normalize()
-        elif self.name_fun == "PixelDistributionAdaptation":
-            return self.PixelDistributionAdaptation()
-        elif self.name_fun == "PlanckianJitter":
-            return self.PlanckianJitter()
-        elif self.name_fun == "PlasmaBrightnessContrast":
-            return self.PlasmaBrightnessContrast()
-        elif self.name_fun == "PlasmaShadow":
-            return self.PlasmaShadow()
-        elif self.name_fun == "Posterize":
-            return self.Posterize()
-        elif self.name_fun == "RGBShift":
-            return self.RGBShift()
-        elif self.name_fun == "RandomBrightnessContrast":
-            return self.RandomBrightnessContrast()
-        elif self.name_fun == "RandomFog":
-            return self.RandomFog()
-        elif self.name_fun == "RandomGamma":
-            return self.RandomGamma()
-        elif self.name_fun == "RandomGravel":
-            return self.RandomGravel()
-        elif self.name_fun == "RandomRain":
-            return self.RandomRain()
-        elif self.name_fun == "RandomShadow":
-            return self.RandomShadow()
-        elif self.name_fun == "RandomSnow":
-            return self.RandomSnow()
-        elif self.name_fun == "RandomSunFlare":
-            return self.RandomSunFlare()
-        elif self.name_fun == "RandomToneCurve":
-            return self.RandomToneCurve()
-        elif self.name_fun == "RingingOvershoot":
-            return self.RingingOvershoot()
-        elif self.name_fun == "SaltAndPepper":
-            return self.SaltAndPepper()
-        elif self.name_fun == "Sharpen":
-            return self.Sharpen()
-        elif self.name_fun == "ShotNoise":
-            return self.ShotNoise()
-        elif self.name_fun == "Solarize":
-            return self.Solarize()
-        elif self.name_fun == "Spatter":
-            return self.Spatter()
-        elif self.name_fun == "Superpixels":
-            return self.Superpixels()
-        elif self.name_fun == "TemplateTransform":
-            return self.TemplateTransform()
-        elif self.name_fun == "TextImage":
-            return self.TextImage()
-        elif self.name_fun == "ToFloat":
-            return self.ToFloat()
-        elif self.name_fun == "ToGray":
-            return self.ToGray()
-        elif self.name_fun == "ToRGB":
-            return self.ToRGB()
-        elif self.name_fun == "ToSepia":
-            return self.ToSepia()
-        elif self.name_fun == "UnsharpMask":
-            return self.UnsharpMask()
-        elif self.name_fun == "ZoomBlur":
-            return self.ZoomBlur()
+        elif self.name_fun == "hsv_h":
+            return self.hsv_h()
+        elif self.name_fun == "hsv_s":
+            return self.hsv_s()
+        elif self.name_fun == "hsv_v":
+            return self.hsv_v()
+        elif self.name_fun == "degrees":
+            return self.degrees()
+        elif self.name_fun == "translate":
+            return self.translate()
+        elif self.name_fun == "scale":
+            return self.scale()
+        elif self.name_fun == "shear":
+            return self.shear()
+        elif self.name_fun == "perspective":
+            return self.perspective()
+        elif self.name_fun == "flipud":
+            return self.flipud()
+        elif self.name_fun == "fliplr":
+            return self.fliplr()
+        elif self.name_fun == "bgr":
+            return self.bgr()
+        elif self.name_fun == "mosaic":
+            return self.mosaic()
+        elif self.name_fun == "mixup":
+            return self.mixup()
+        elif self.name_fun == "copy_paste":
+            return self.copy_paste()
+        elif self.name_fun == "copy_paste_mode":
+            return self.copy_paste_mode()
+        elif self.name_fun == "auto_augument":
+            return self.auto_augument()
+        elif self.name_fun == "erasing":
+            return self.erasing()
+        elif self.name_fun == "crop_fraction":
+            return self.crop_fraction()
         else:
             raise ValueError(f"Метод: {self.name_fun} не существует")
             
@@ -611,30 +507,37 @@ class manageParams:
         noise_limit = [(0.9, 1.1), "float"]
         return (blur_limit, sigma_x_limit, sigma_y_limit, rotate_limit, beta_limit, noise_limit)
 
+
     def AutoContrast(self):
         return ()
+
 
     def Blur(self):
         blur_limit = [(3, 7), "int"]
         return (blur_limit,)
+
 
     def CLAHE(self):
         clip_limit = [1, 10]
         tile_grid_size = [(8, 8), "int"]
         return (clip_limit, tile_grid_size)
 
+
     def ChannelDropout(self):
         channel_drop_range = [(1, 3), "int"]
         fill_value = [0, 255]
         return (channel_drop_range, fill_value)
 
+
     def ChannelShuffle(self):
         return ()
+
 
     def ChromaticAberration(self):
         distortion_scale = [(-0.02, 0.02), "float"]
         secondary_distortion_limit = [(-0.05, 0.05), "float"]
         return (distortion_scale, secondary_distortion_limit)
+
 
     def ColorJitter(self):
         brightness = [(0.8, 1.2), "float"]
@@ -643,37 +546,43 @@ class manageParams:
         hue = [(-0.5, 0.5), "float"]
         return (brightness, contrast, saturation, hue)
 
+
     def Defocus(self):
         radius = [(3, 10), "int"]
         alias_blur = [(0.1, 0.5), "float"]
         return (radius, alias_blur)
 
+
     def Downscale(self):
         scale_min = [(0.25, 0.25), "float"]
         return (scale_min)
 
+
     def Emboss(self):
-        a.Emboss()
         alpha = [(0, 0.5), "float"]
         strength = [(0.2, 0.7), "float"]
         return (alpha, strength)
 
+
     def Equalize(self):
-        a.Equalize()
         mode = ['cv', 'pil']
         by_channels = [True, False]
         return (mode, by_channels)
+
 
     def FDA(self):
         beta_limit = [(0, 0.1), "float"]
         return (beta_limit,)
 
+
     def FancyPCA(self):
         alpha = [(0, 0.1), "float"]
         return (alpha,)
 
+
     def FromFloat(self):
         return ()
+
 
     def GaussNoise(self):
         var_limit = [(0.2, 0.44), "int"]
@@ -684,10 +593,12 @@ class manageParams:
         ]
         return (var_limit, mean, per_channel)
 
+
     def GaussianBlur(self):
         blur_limit = [0, 100]
         sigma_limit = [(0.5, 3), "float"]
         return (blur_limit,sigma_limit)
+
 
     def GlassBlur(self):
         sigma = [0, 1]
@@ -702,10 +613,12 @@ class manageParams:
         val_shift_limit = [(-20, 20), "int"]
         return (hue_shift_limit, sat_shift_limit, val_shift_limit)
 
+
     def ISONoise(self):
         color_shift_limit = [(0.01, 0.05), "float"]
         intensity = [(0.1, 0.5), "float"]
         return (color_shift_limit, intensity)
+
 
     def Illumination(self):
         mode = [
@@ -724,6 +637,7 @@ class manageParams:
         sigma_range = [(0.2, 1), "float"]
         return (mode, intensity_range, effect_type, angle_range, center_range, sigma_range)
 
+
     def ImageCompression(self):
         compression_typ =[
             'jpeg',
@@ -732,16 +646,17 @@ class manageParams:
         quality_range = [(99, 100), "int"]
         return (compression_typ, quality_range)
 
+
     def InvertImg(self):
         return ()
 
+
     def MedianBlur(self):
-        a.MedianBlur()
         blur_limit = [0, 10]
         return (blur_limit,)
 
+
     def MotionBlur(self):
-        a.MotionBlur()
         blur_limit = [(3, 7), "int"]
         allow_shifted = [
             True,
@@ -751,10 +666,12 @@ class manageParams:
         direction_range = [(-1, 1), "float"]
         return (blur_limit,allow_shifted, angle_range, direction_range)
 
+
     def MultiplicativeNoise(self):
         multiplier = [(0.9, 1.1), "float"]
         per_channel = [True, False]
         return (multiplier, per_channel)
+
 
     def Normalize(self):
         mean = [(0, 255), "int"]
@@ -762,28 +679,34 @@ class manageParams:
         max_pixel_value = [(1, 255), "int"]
         return (mean, std, max_pixel_value)
 
+
     def PixelDistributionAdaptation(self):
         transform_type = ['pca', 'standard']
         return (transform_type,)
+
 
     def PlanckianJitter(self):
         mode = ['blackbody', 'CIED']
         strength = [(0, 1), "float"]
         return (mode, strength)
 
+
     def PlasmaBrightnessContrast(self):
         alpha = [(0, 1), "float"]
         beta = [(0, 1), "float"]
         return (alpha, beta)
+
 
     def PlasmaShadow(self):
         alpha = [(0, 1), "float"]
         beta = [(0, 1), "float"]
         return (alpha, beta)
 
+
     def Posterize(self):
         num_bits = [(4, 8), "int"]
         return (num_bits,)
+
 
     def RGBShift(self):
         r_shift_limit = [(-20, 20), "int"]
@@ -791,10 +714,12 @@ class manageParams:
         b_shift_limit = [(-20, 20), "int"]
         return (r_shift_limit, g_shift_limit, b_shift_limit)
 
+
     def RandomBrightnessContrast(self):
         brightness_limit = [(-0.2, 0.2), "float"]
         contrast_limit = [(-0.2, 0.2), "float"]
         return (brightness_limit, contrast_limit)
+
 
     def RandomFog(self):
         fog_coef_lower = [(0.3, 1.0), "float"]
@@ -802,76 +727,85 @@ class manageParams:
         alpha_coef = [(0.08, 0.1), "float"]
         return (fog_coef_lower, fog_coef_upper, alpha_coef)
 
+
     def RandomGamma(self):
         gamma_limit = [(80, 120), "int"]
         return (gamma_limit,)
+
 
     def RandomGravel(self):
         gravel_roi = [(0, 1), "float"]
         number_of_patches = [(1, 5), "int"]
         return (gravel_roi, number_of_patches)
 
+
     def RandomRain(self):
         slant_lower = [(-10, 10), "int"]
-        slant_upper = [(-10, 10), "int"]
-        drop_length = [(20, 30), "int"]
-        drop_width = [(1, 2), "int"]
-        drop_color = [(200, 200, 200), (255, 255, 255)]
-        return (slant_lower, slant_upper, drop_length, drop_width, drop_color)
+        drop_length = [0, 100]
+        drop_width = [1, 100]
+        return (slant_lower, drop_length, drop_width)
+
 
     def RandomShadow(self):
-        shadow_roi = [(0, 1), "float"]
-        num_shadows_lower = [(1, 2), "int"]
-        num_shadows_upper = [(1, 2), "int"]
-        shadow_dimension = [(5, 10), "int"]
-        return (shadow_roi, num_shadows_lower, num_shadows_upper, shadow_dimension)
+        return ()
+
 
     def RandomSnow(self):
-        snow_point_lower = [(0.1, 0.3), "float"]
-        snow_point_upper = [(0.7, 1.0), "float"]
         brightness_coeff = [(2.5, 3.5), "float"]
-        return (snow_point_lower, snow_point_upper, brightness_coeff)
+        snow_point_range = [(0.1, 0.3), "float"]
+        method = [
+            'bleach',
+            'texture'
+        ]
+        return (brightness_coeff, snow_point_range, method)
+
 
     def RandomSunFlare(self):
-        flare_roi = [(0, 1), "float"]
-        angle_lower = [(0, 360), "int"]
-        angle_upper = [(0, 360), "int"]
-        num_flare_circles_lower = [(6, 10), "int"]
-        num_flare_circles_upper = [(6, 10), "int"]
-        src_radius = [(400, 800), "int"]
-        src_color = [(255, 255, 255), (255, 255, 255)]
-        return (flare_roi, angle_lower, angle_upper, num_flare_circles_lower, num_flare_circles_upper, src_radius, src_color)
+        return ()
+
 
     def RandomToneCurve(self):
-        scale = [(0, 1), "float"]
-        return (scale,)
+        scale = [0, 1]
+        per_chanel = [
+            False,
+            True
+        ]
+        return (scale, per_chanel)
+
 
     def RingingOvershoot(self):
         blur_limit = [(3, 7), "int"]
         return (blur_limit,)
 
+
     def SaltAndPepper(self):
-        noise_density = [(0.001, 0.01), "float"]
-        return (noise_density,)
+        noise_density = [(0.01, 0.06), "float"]
+        salt_vs_pepper = [(0.4, 0.6), "float"]
+        return (noise_density, salt_vs_pepper)
+
 
     def Sharpen(self):
         alpha = [(0, 1), "float"]
         lightness = [(0, 1), "float"]
         return (alpha, lightness)
 
+
     def ShotNoise(self):
         intensity = [(0, 1), "float"]
         return (intensity,)
 
+
     def Solarize(self):
         threshold = [(128, 255), "int"]
         return (threshold,)
+
 
     def Spatter(self):
         mean = [(0, 1), "float"]
         std = [(0, 1), "float"]
         gauss = [True, False]
         return (mean, std, gauss)
+
 
     def Superpixels(self):
         p_replace = [(0, 1), "float"]
@@ -885,10 +819,12 @@ class manageParams:
         ]
         return (p_replace, n_segments, max_size, interpolation)
 
+
     def TemplateTransform(self):
         img_weight = [(0, 1), "float"]
         template_weight = [(0, 1), "float"]
         return (img_weight, template_weight)
+
 
     def TextImage(self):
         text = ['example']
@@ -898,17 +834,22 @@ class manageParams:
         thickness = [(1, 3), "int"]
         return (text, font, size, color, thickness)
 
+
     def ToFloat(self):
         return ()
+
 
     def ToGray(self):
         return ()
 
+
     def ToRGB(self):
         return ()
 
+
     def ToSepia(self):
         return ()
+
 
     def UnsharpMask(self):
         blur_limit = [(3, 7), "int"]
@@ -917,7 +858,107 @@ class manageParams:
         threshold = [(0, 1), "float"]
         return (blur_limit, sigma_limit, alpha, threshold)
 
+
     def ZoomBlur(self):
         max_factor = [(1.0, 1.5), "float"]
         step_factor = [(0.01, 0.1), "float"]
         return (max_factor, step_factor)
+    
+
+    def hsv_h(self):
+        hsv_h = [0, 1]
+        return (hsv_h,)
+    
+
+    def hsv_s(self):
+        hsv_s = [0, 1] 
+        return (hsv_s,)
+    
+
+    def hsv_v(self):
+        hsv_v = [0, 1]
+        return (hsv_v,)
+    
+
+    def degrees(self):
+        degrees = [0, 180]
+        return (degrees,)
+    
+
+    def translate(self):
+        translate = [0, 1]
+        return (translate,)
+    
+
+    def scale(self):
+        scale = [0, 10]
+        return (scale,)
+    
+
+    def shear(self):
+        shear = [0, 180]
+        return (shear,)
+    
+
+    def perspective(self):
+        perspective = [0, 0.01]
+        return (perspective,)
+    
+
+    def flipud(self):
+        flipud = [0, 1]
+        return (flipud,)
+    
+
+    def fliplr(self):
+        fliplr = [0, 1]
+        return (fliplr,)
+    
+
+    def bgr(self):
+        bgr = [0, 1]
+        return (bgr,)
+    
+
+    def mosaic(self):
+        mosaic = [0, 1]
+        return (mosaic,)
+    
+
+    def mixup(self):
+        mixup = [0, 1]
+        return (mixup,)
+    
+
+    def copy_paste(self):
+        copy_paste = [0, 1]
+        return (copy_paste,)
+    
+
+    def copy_paste_mode(self):
+        copy_paste_mode = [
+            "flip",
+            "mixup"
+        ]
+        return (copy_paste_mode,)
+    
+
+    def auto_augument(self):
+        auto_augment = [
+            "randaugment",
+            "autoaugment",
+            "augmix"
+        ]
+        return (auto_augment,)
+    
+
+    def erasing(self):
+        erasing = [0, 0.9]
+        return (erasing,)
+    
+
+    def crop_fraction(self):
+        crop_fraction = [0, 1]
+        return (crop_fraction,)
+
+    #

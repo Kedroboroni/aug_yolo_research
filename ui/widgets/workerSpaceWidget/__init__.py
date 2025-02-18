@@ -4,14 +4,12 @@ sys.path.append(os.path.dirname(
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 from PySide6.QtWidgets import (
     QStackedWidget,
-    QCheckBox,
     QLabel,
     QHBoxLayout,
     QVBoxLayout,
     QPushButton,
     QWidget,
     QLineEdit,
-    QSizePolicy,
     QScrollArea,
     QMessageBox)
 from PySide6.QtCore import Qt, QSize
@@ -19,6 +17,7 @@ from PySide6.QtGui import QPixmap, QImage
 from widgets.sidebarWidget import sidebarWidget
 from dialogWindow import dialogWindow
 from processes.process_aug import *
+from processes.process_yolo_run import *
 from dictsParams import *
 from groupBoxChange import groupBoxChange
 from events.internal.on_btnChange import *
@@ -153,7 +152,7 @@ class workSpaceWidget(QStackedWidget):
         layout = QVBoxLayout(widget)
 
         self.boxChange_external = groupBoxChange()
-        self.boxChange_external.btnChange.clicked.connect(lambda: openDirectory(self.boxChange_transform.lineEdit))
+        self.boxChange_external.btnChange.clicked.connect(lambda: openDirectory(self.boxChange_external.lineEdit))
 
         scroll = QScrollArea()
         scroll.setMinimumSize(QSize(512, 512))
@@ -167,6 +166,7 @@ class workSpaceWidget(QStackedWidget):
 
         for key, item in self.dictParamsExternal.items():
             self.checkBox_external = checkBox(text=key)
+            self.checkBox_external.tunnel_signal.connect(self.updateParams_external)
             self.status_ChecBox_external[key] = self.checkBox_external
             scroll_layout.addWidget(self.checkBox_external)
 
@@ -186,7 +186,7 @@ class workSpaceWidget(QStackedWidget):
 
     def updateParams_brighets(self, name, value):
 
-        self.dictParams[name] = partial(self.dictParamsInternalTransform[name], *value)
+        self.dictParams[name] = partial(self.dictParamsInternal[name], *value)
         print(f"Обновили параметры: {self.dictParams}")
 
 
@@ -194,6 +194,12 @@ class workSpaceWidget(QStackedWidget):
 
         self.dictParams_transform[name] = partial(self.dictParamsInternalTransform[name], *value)
         print(f"Обновили параметры: {self.dictParams_transform}")
+
+
+    def updateParams_external(self, name, value):
+
+        self.dictParams_external[name] = value
+        print(f"Обновили параметры: {self.dictParams_external}")
 
 
     def on_btnStart_brightness_settings(self):
@@ -326,26 +332,14 @@ class workSpaceWidget(QStackedWidget):
         }
 
         listKeys_func_external = list(select_box_external.keys())
-
-        text = f"<b>Ваши выбранные функции:</b> <br>  {
-            "<br>".join(select_box_external.keys())
-        }"
-        
         if path_external and select_box_external:
-            self.msg_external = dialogWindow(text)        
-            self.msg_external.show()
-
             if not self.process_running_external:
-                self.process_running_external = True
-                self.msg_external.progressBar.setValue(0)
-                self.btnStart_external.setDisabled(True)
-                self.thread_external = ProcessThread(path_external, listKeys_func_external)
-                self.thread_external.progress.connect(self.msg_external.update_progress_bar)
-                self.thread_external.finished.connect(self.msg_external.update_progress_bar)
-                self.thread_external.finished.connect(lambda: self.btnStart_external.setEnabled(True))
-                self.thread_external.finished.connect(lambda: setattr(self, 'process_running', False))
-                self.thread_external.done.connect(self.msg_external.close)
-                self.thread_external.start()
+                    self.process_running_external = True
+                    self.btnStart_external.setDisabled(True)
+                    self.thread_external = ProcessThreadExternal(path_external, listKeys_func_external, self.dictParams_external)
+                    self.thread_external.finished.connect(lambda: self.btnStart_external.setEnabled(True))
+                    self.thread_external.finished.connect(lambda: setattr(self, 'process_running', False))
+                    self.thread_external.start()
 
         elif select_box_external:
             messageError = QMessageBox(text = "Укажите путь!")

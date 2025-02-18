@@ -3,7 +3,6 @@ sys.path.append(os.path.dirname(
                 os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from PySide6.QtWidgets import QWidget
 from PySide6.QtWidgets import QVBoxLayout
-from PySide6.QtCore import Qt
 from labels.sidebarLabel import sidebarLabel
 
 

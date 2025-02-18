@@ -1,8 +1,6 @@
 import sys
-from PySide6.QtWidgets import QLabel, QVBoxLayout, QScrollArea, QHBoxLayout, QDialog, QMessageBox, QProgressBar
-from PySide6.QtCore import QSize, Qt, QRect
-from PySide6.QtWidgets import QSizePolicy
-from multiprocessing import Process
+from PySide6.QtWidgets import QLabel, QVBoxLayout, QScrollArea, QDialog, QProgressBar
+from PySide6.QtCore import QSize, Qt
 
 
 

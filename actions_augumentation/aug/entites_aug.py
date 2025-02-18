@@ -6,9 +6,8 @@ import cv2
 import numpy as np
 import albumentations as A
 from aug.core_aug import *
-
+import os; os.environ['NO_ALBUMENTATIONS_UPDATE'] = '1'
 from convert_utils.convert import *
-import random as r
 
 
 

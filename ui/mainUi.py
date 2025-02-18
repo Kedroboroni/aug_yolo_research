@@ -3,6 +3,7 @@ from widgets import errorWidget,  sidebarWidget, workerSpaceWidget
 import sys
 
 
+
 class mainWindow(QMainWindow):
 
     def __init__(self):

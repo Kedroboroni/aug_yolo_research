@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(
     )
 )
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-from PySide6.QtWidgets import QDialog, QPushButton, QWidget, QComboBox, QVBoxLayout, QMessageBox, QLabel, QLineEdit, QHBoxLayout
+from PySide6.QtWidgets import QDialog, QPushButton, QWidget, QComboBox, QVBoxLayout, QMessageBox, QLineEdit, QHBoxLayout
 from PySide6.QtCore import QSize, Signal
 from dictsParams.manageParams import manageParams
 from slider import slider
@@ -62,7 +62,6 @@ class settingsWindow(QDialog):
                 self.layout.addWidget(widget_lineEdit)
                 tuple_value = (lineEdit_min, lineEdit_max)
                 self.value_widgets.append(tuple_value)
-                #tuple_value = ()
 
             elif len(obj) == 2:
                 step = obj[1] / 100
@@ -84,15 +83,18 @@ class settingsWindow(QDialog):
         for widget in self.value_widgets:
             if isinstance(widget, QComboBox):
                 try:
-                    values[widget] = int(widget.currentText())
+                    values[widget] = float(widget.currentText())
                 except ValueError:
                     values[widget] = str(widget.currentText())
 
             elif isinstance(widget, slider):
-                values[widget] = int(widget.getCurrentValue())
+                try:
+                    values[widget] = float(widget.getCurrentValue())
+                except ValueError:
+                    values[widget] = str(widget.currentText())
 
             elif isinstance(widget, tuple):
-                values[widget] = (int(widget[0].text()), int(widget[1].text()))
+                values[widget] = (widget[0].text()), float(widget[1].text())
                 #values[widget[1]] = int(widget[1].text())
 
             elif isinstance(widget, QLineEdit):

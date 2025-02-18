@@ -1,3 +1,4 @@
+
 import sys, os
 sys.path.append(os.path.dirname(
                     os.path.dirname(
@@ -18,17 +19,15 @@ sys.path.append(os.path.dirname(
                 )
             )
 from PySide6.QtCore import QThread, Signal
-from multiprocessing import Process, Queue
-from events.internal.on_btnStart import *
+from multiprocessing import Process
+from events.external.on_btnStart_external import *
 
 
 
 
 
-class ProcessThread(QThread):
+class ProcessThreadExternal(QThread):
     finished = Signal(int)
-    done = Signal()
-    progress = Signal(int)
 
     def __init__(self, path, listKeys, dictParams):
         super().__init__()
@@ -37,16 +36,9 @@ class ProcessThread(QThread):
         self.dictParams = dictParams
 
     def run(self):
-        queue = Queue()
-        process = Process(target=on_btnStart, args=(queue, self.path, self.listKeys, self.dictParams))
+        process = Process(target=on_btnStart_external, args=(self.path, self.listKeys, self.dictParams))
         process.start()
 
-        while True:
-            percentage = queue.get()
-            if percentage is None:
-                self.done.emit()
-                break
-            self.progress.emit(percentage)
-        self.finished.emit(percentage)   
+        process.join()
+        self.finished.emit(100)
 
- 
