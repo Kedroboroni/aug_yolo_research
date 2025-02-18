@@ -31,7 +31,9 @@ class settingsWindow(QDialog):
 
         self.value_widgets = []
         tuple_params = manageParams(name_fun).get_params()
-
+!!!!! переписать так, чтобы работало со словарем
+!!!!! нужно чтобы в manageParams возварщался не кортеж а словарь!
+!!!!! доавить имя параметра который мы меняем
         for obj in tuple_params:
             if len(obj) > 2:
                 comboBox = QComboBox()
@@ -65,7 +67,7 @@ class settingsWindow(QDialog):
 
             elif len(obj) == 2:
                 step = obj[1] / 100
-                slider_widget = slider(obj[0], obj[1], step)
+                slider_widget = slider(obj[0], obj[1], step, name_params)
                 self.value_widgets.append(slider_widget)
                 self.layout.addWidget(slider_widget)
 

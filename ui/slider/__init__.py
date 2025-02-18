@@ -10,9 +10,10 @@ from PySide6.QtCore import Qt
 class slider(QWidget):
 
 
-    def __init__(self, min_value, max_value, step):
-
+    def __init__(self, min_value, max_value, step, name_params):
+!!!!! name_params - имя функции ! Добавить перед слидером в HBox
         super().__init__()
+        self.name_params = name_params
 
         if min_value == 0 and max_value//10 == 0:
             self.min_value = 0
@@ -28,6 +29,8 @@ class slider(QWidget):
         
         layout = QHBoxLayout()
 
+        self.label_name = QLabel(self.name_params)
+
         self.slider = QSlider(Qt.Horizontal)
         self.slider.setMinimum(self.min_value)
         self.slider.setMaximum(self.max_value) 
@@ -39,6 +42,7 @@ class slider(QWidget):
 
         self.slider.valueChanged.connect(self.updateLabel)
 
+        layout.addWidget(self.label_name)
         layout.addWidget(self.slider)
         layout.addWidget(self.label)
 
@@ -53,10 +57,10 @@ class slider(QWidget):
 
     def getCurrentValue(self):
         if self.flag_float:
-            return self.slider.value()/100
+            return (self.name_params, self.slider.value()/100)
         
         else:
-            return self.slider.value()
+            return (self.name_params, self.slider.value())
     
 
 if __name__ == "__main__":
