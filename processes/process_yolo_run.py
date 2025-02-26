@@ -27,7 +27,7 @@ from events.external.on_btnStart_external import *
 
 
 class ProcessThreadExternal(QThread):
-    finished = Signal(int)
+    finished = Signal()
 
     def __init__(self, path, listKeys, dictParams):
         super().__init__()
@@ -40,5 +40,5 @@ class ProcessThreadExternal(QThread):
         process.start()
 
         process.join()
-        self.finished.emit(100)
+        self.finished.emit()
 

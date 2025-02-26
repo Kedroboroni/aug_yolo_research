@@ -10,26 +10,35 @@ from PySide6.QtCore import Qt
 class slider(QWidget):
 
 
-    def __init__(self, min_value, max_value, step, name_params):
-!!!!! name_params - имя функции ! Добавить перед слидером в HBox
+    def __init__(self, min_value, max_value, step, name_param):
         super().__init__()
-        self.name_params = name_params
+        self.name_param = name_param
 
-        if min_value == 0 and max_value//10 == 0:
+
+        if min_value == 0 and max_value <= 0.01:
+            self.min_value = 0
+            self.max_value = 100000*max_value
+            self.step = 1
+            self.flag_float = True
+            self.flag_1000 = True
+
+        elif min_value == 0 and max_value <= 1:
             self.min_value = 0
             self.max_value = 100*max_value
             self.step = 1
             self.flag_float = True
+            self.flag_1000 = False
 
         else:
             self.min_value = min_value
             self.max_value = max_value
             self.step = step
             self.flag_float = False
+            self.flag_1000 = False
         
         layout = QHBoxLayout()
 
-        self.label_name = QLabel(self.name_params)
+        self.label_name = QLabel(self.name_param)
 
         self.slider = QSlider(Qt.Horizontal)
         self.slider.setMinimum(self.min_value)
@@ -38,7 +47,7 @@ class slider(QWidget):
         self.slider.setValue(self.min_value)    
 
         self.label = QLabel(f"Текущее значение: {self.slider.value()}")
-        self.label.setFixedWidth(150)
+        self.label.setFixedWidth(180)
 
         self.slider.valueChanged.connect(self.updateLabel)
 
@@ -49,34 +58,25 @@ class slider(QWidget):
         self.setLayout(layout)
 
     def updateLabel(self, value):
-        if self.flag_float:
-             self.label.setText(f"Текущее значение: {value/100}")
-
-        else:
-            self.label.setText(f"Текущее значение: {value}")
-
-    def getCurrentValue(self):
-        if self.flag_float:
-            return (self.name_params, self.slider.value()/100)
+        if self.flag_float and self.flag_1000:
+            self.label.setText(f"Текущее значение: {float(self.slider.value()/100000)}")
+            return (self.name_param, float(self.slider.value()/100000))
+    
+        elif self.flag_float:
+            self.label.setText(f"Текущее значение: {float(self.slider.value()/100)}")
+            return (self.name_param, float(self.slider.value()/100))
         
         else:
-            return (self.name_params, self.slider.value())
+            self.label.setText(f"Текущее значение: {self.slider.value()}")
+            return (self.name_param, float(self.slider.value()))
+
+    def currentWidget(self):
+        if self.flag_float and self.flag_1000:
+            return (self.name_param, float(self.slider.value()/100000))
     
-
-if __name__ == "__main__":
-
-    from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout
-    import sys
-
-    app = QApplication(sys.argv)
-    with open(r"ui\SpyBot.qss", "r") as file:
-            style = file.read()
-            app.setStyleSheet(style)  
-    window = QWidget()
-    layout = QVBoxLayout()
-    btn1 = slider(1, 100, 1)
-    window.setLayout(layout)
-    layout.addWidget(btn1)
-    window.resize(300, 200)
-    window.show()
-    sys.exit(app.exec())
+        elif self.flag_float:
+            return (self.name_param, float(self.slider.value()/100))
+        
+        else:
+            return (self.name_param, float(self.slider.value()))
+    

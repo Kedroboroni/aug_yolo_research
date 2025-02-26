@@ -10,10 +10,21 @@ sys.path.append(os.path.dirname(
     )
 )
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-from PySide6.QtWidgets import QDialog, QPushButton, QWidget, QComboBox, QVBoxLayout, QMessageBox, QLineEdit, QHBoxLayout
+from PySide6.QtWidgets import (QDialog,
+                               QPushButton,
+                               QWidget,
+                               QComboBox,
+                               QVBoxLayout,
+                               QHBoxLayout,
+                               QMessageBox,
+                               QLineEdit,
+                               QHBoxLayout,
+                               QLabel)
 from PySide6.QtCore import QSize, Signal
 from dictsParams.manageParams import manageParams
 from slider import slider
+from comboBox import comboBox
+from lineEdit import lineEdit
 
 
 
@@ -21,7 +32,7 @@ from slider import slider
 
 class settingsWindow(QDialog):
     size = QSize(500, 170)
-    right_button_clicked = Signal(str, list)
+    right_button_clicked_successful = Signal(str, dict)
 
     def __init__(self, name_fun):
         super().__init__()
@@ -30,48 +41,28 @@ class settingsWindow(QDialog):
         self.layout = QVBoxLayout()
 
         self.value_widgets = []
-        tuple_params = manageParams(name_fun).get_params()
-!!!!! переписать так, чтобы работало со словарем
-!!!!! нужно чтобы в manageParams возварщался не кортеж а словарь!
-!!!!! доавить имя параметра который мы меняем
-        for obj in tuple_params:
-            if len(obj) > 2:
-                comboBox = QComboBox()
-                for item in obj:
-                    comboBox.addItem(f"{item}")
-                self.value_widgets.append(comboBox)
-                self.layout.addWidget(comboBox)
+        dict_params = manageParams(name_fun).get_params()
 
-            elif type(obj[0]) == bool:
-                lineEdit_bool = QLineEdit("bool")
-                self.value_widgets.append(lineEdit_bool)
-                self.layout.addWidget(lineEdit_bool)
+        for name_param, values in dict_params.items():
+            if len(values) > 2:
+                param_widget = comboBox(name_param, values)
+                self.layout.addWidget(param_widget)
 
-            elif len(obj) == 2 and obj[1] in ["int", "float"]:
-                if obj[1] == "int":
-                    lineEdit_min = QLineEdit(f"int min -> {obj[0][0]}")
-                    lineEdit_max = QLineEdit(f"int max -> {obj[0][1]}")
+            elif type(values[0]) == bool:
+                param_widget = comboBox(name_param, values)
+                self.layout.addWidget(param_widget)
 
-                elif obj[1] == "float":
-                    lineEdit_min = QLineEdit(f"float min -> {obj[0][0]}")
-                    lineEdit_max = QLineEdit(f"float max -> {obj[0][1]}")
+            elif len(values) == 2 and values[1] in ["int", "float"]:
+                
+                param_widget = lineEdit(name_param, values)
+                self.layout.addWidget(param_widget)
 
-                widget_lineEdit = QWidget()
-                layoutLine = QHBoxLayout()
-                layoutLine.addWidget(lineEdit_min)
-                layoutLine.addWidget(lineEdit_max)
-                widget_lineEdit.setLayout(layoutLine)
-                self.layout.addWidget(widget_lineEdit)
-                tuple_value = (lineEdit_min, lineEdit_max)
-                self.value_widgets.append(tuple_value)
-
-            elif len(obj) == 2:
-                step = obj[1] / 100
-                slider_widget = slider(obj[0], obj[1], step, name_params)
-                self.value_widgets.append(slider_widget)
-                self.layout.addWidget(slider_widget)
-
-    
+            elif len(values) == 2:
+                step = values[1] / 100
+                param_widget = slider(values[0], values[1], step, name_param)
+                self.layout.addWidget(param_widget)
+            
+            self.value_widgets.append(param_widget)
 
         self.ok_button = QPushButton("OK")
         self.layout.addWidget(self.ok_button)
@@ -81,46 +72,19 @@ class settingsWindow(QDialog):
 
 
     def getValues(self):
-        values = {}
+        self.dictValues = {}
+
         for widget in self.value_widgets:
-            if isinstance(widget, QComboBox):
-                try:
-                    values[widget] = float(widget.currentText())
-                except ValueError:
-                    values[widget] = str(widget.currentText())
+            self.dictValues[widget.currentWidget()[0]] = widget.currentWidget()[1]
 
-            elif isinstance(widget, slider):
-                try:
-                    values[widget] = float(widget.getCurrentValue())
-                except ValueError:
-                    values[widget] = str(widget.currentText())
-
-            elif isinstance(widget, tuple):
-                values[widget] = (widget[0].text()), float(widget[1].text())
-                #values[widget[1]] = int(widget[1].text())
-
-            elif isinstance(widget, QLineEdit):
-                if widget.text() == "False":
-                    values[widget] = False
-                if widget.text() == "True":
-                    values[widget] = True
-
-        return values
+        return self.dictValues
 
 
     def accept(self):
-        try:
-            self.valuesParams = tuple(self.getValues().values())
-        except ValueError:
-            messageError = QMessageBox(text = "Укажит верный формат!")
-            messageError.setWindowTitle("Ошибка")
-            messageError.setIcon(QMessageBox.Warning)
-            messageError.setStandardButtons(QMessageBox.Ok)
-            messageError.exec_()
-            return
         
         super().accept()
-        self.right_button_clicked.emit(self.name_fun, self.valuesParams)
+        dictParam = self.getValues()
+        self.right_button_clicked_successful.emit(self.name_fun, dictParam)
 
 
 

@@ -5,21 +5,27 @@ import time
 
 args = sys.argv[1:]
 
+def is_float(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
 
 path_dataset = args[0]
 keys = args[1]
 value = args[2]
-    #dictParams = {}
 
-    #for i, key in enumerate(keys):
-        #dictParams[key] = value[i]
-
+keys = keys.split(',')
+value = value.split(',')
 
 print(path_dataset)
-print(keys)
-print(value)
-a = input()
-#time.sleep(10)
-    #model = YOLO("yolo8n.pt")
+print(keys, print(type(keys[0])), len(keys))
+print(value, print(type(value [0])), len(value))
 
-    #results = model.train(data = path_dataset, epochs = 100, imgsz = 640, **dictParams)
+
+dictParams = {key: float(value[i]) if is_float(value[i]) else value[i] for i,key in enumerate(keys)}
+
+print(dictParams)
+
+a = input()

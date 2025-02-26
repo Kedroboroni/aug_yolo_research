@@ -4,6 +4,8 @@ from PySide6.QtCore import QSize, Qt
 
 
 
+
+
 class dialogWindow(QDialog):
     size = QSize(500, 170)
     

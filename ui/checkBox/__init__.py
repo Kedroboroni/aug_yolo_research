@@ -19,7 +19,7 @@ from ui.settingsWindow import settingsWindow
 
 class checkBox(QCheckBox):
     settings = None
-    tunnel_signal = Signal(str, list)
+    tunnel_signal = Signal(str, dict)
     def __init__(self, text):
         super().__init__(text)
         self.name_fun = text     
@@ -31,12 +31,12 @@ class checkBox(QCheckBox):
                
         elif event.button() == Qt.RightButton:
             self.settings = settingsWindow(self.name_fun)
-            self.settings.right_button_clicked.connect(self.tunnel_signal_settings)
+            self.settings.right_button_clicked_successful.connect(self.tunnel_signal_settings)
             self.settings.exec_()
 
-    def tunnel_signal_settings(self, name, params):
+    def tunnel_signal_settings(self, name_fun, dictParams):
 
-        self.tunnel_signal.emit(name, params)
+        self.tunnel_signal.emit(name_fun, dictParams)
 
         
                  

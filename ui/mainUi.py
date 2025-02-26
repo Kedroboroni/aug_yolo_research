@@ -4,6 +4,10 @@ import sys
 
 
 
+
+
+
+
 class mainWindow(QMainWindow):
 
     def __init__(self):
@@ -16,7 +20,7 @@ class mainWindow(QMainWindow):
 
     def placment(self):
 
-        centralWidget = QWidget()
+        centralWidget = QWidget() 
         self.setCentralWidget(centralWidget)    
 
         layoutH = QHBoxLayout()
@@ -61,3 +65,17 @@ if __name__ == "__main__":
     window.show()
     sys.exit(app.exec())
     
+
+
+    #a = [  ]
+
+
+
+    #ненужны настройки = [functools.partial(<class 'albumentations.augmentations.dropout.coarse_dropout.Erasing'>),
+    #functools.partial(<class 'albumentations.augmentations.spectrogram.transform.FrequencyMasking'>),
+    #functools.partial(<class 'albumentations.augmentations.geometric.transforms.GridDistortion'>),
+    #functools.partial(<class 'albumentations.augmentations.dropout.grid_dropout.GridDropout'>),
+    #functools.partial(<class 'albumentations.augmentations.geometric.transforms.HorizontalFlip'>)]
+
+
+    #нужны настройки = [functools.partial(<class 'albumentations.augmentations.geometric.transforms.GridElasticDeform'>),]
