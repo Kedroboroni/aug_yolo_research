@@ -27,5 +27,6 @@ print(value, print(type(value [0])), len(value))
 dictParams = {key: float(value[i]) if is_float(value[i]) else value[i] for i,key in enumerate(keys)}
 
 print(dictParams)
+print("Дальше тут будет запуск обучения yolo, все созранение и работа Yolo будет назходится в папке results.")
 
 a = input()
