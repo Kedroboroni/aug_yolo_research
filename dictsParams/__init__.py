@@ -1,38 +1,32 @@
 from functools import partial
 from albumentations import *
-import cv2
-import os; os.environ['NO_ALBUMENTATIONS_UPDATE'] = '1'
-# Тут будет импорт yaml файла с параметрами
-
-#В yaml файле будем хранить парметры, при вызове какой-то настройки будем пересохранять этот файл
-#А в словаре  через partial argfun = парметр ипортированный из yaml
-#Осталоьс только найти дурака который все это напишет! Ах да он напртив монитора)0))00)
-#Там где будут списки - будет выпадать список, все остальное вводится через QLineEdit
-#После нажтия ok парметры переcохраняются в yaml
 
 
 
+
+
+#!!!Во всех partial указать необходимый параметр для запуска...
 dictInternalAug_brightness_and_transform_settings = {
     "Affine": Affine, 
-    #"AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
+    #"AtLeastOneBBoxRandomCrop": partial(AtLeastOneBBoxRandomCrop),
     "BBoxSafeRandomCrop": BBoxSafeRandomCrop,
-    #"CenterCrop": CenterCrop,
+    #"CenterCrop": partial(CenterCrop),
     "CoarseDropout": CoarseDropout,
     "ConstrainedCoarseDropout": ConstrainedCoarseDropout,
     "Crop": Crop,
     "CropAndPad": CropAndPad,
-    #"CropNonEmptyMaskIfExists": CropNonEmptyMaskIfExists,
+    #"CropNonEmptyMaskIfExists": partial(CropNonEmptyMaskIfExists),
     "D4": D4,
     "ElasticTransform": ElasticTransform,
     "Erasing": Erasing,
     "FrequencyMasking": FrequencyMasking,
     "GridDistortion": GridDistortion,
     "GridDropout": GridDropout,
-    #"GridElasticDeform": GridElasticDeform,
+    #"GridElasticDeform": partial(GridElasticDeform),
     "HorizontalFlip": HorizontalFlip,
-    #"LongestMaxSize": LongestMaxSize,
+    #"LongestMaxSize": partial(LongestMaxSize),
     "MaskDropout": MaskDropout,
-    #"Morphological": Morphological,
+    #"Morphological": partial(Morphological),
     "NoOp": NoOp,
     "OpticalDistortion": OpticalDistortion,
     "OverlayElements": OverlayElements,
@@ -41,7 +35,7 @@ dictInternalAug_brightness_and_transform_settings = {
     "Perspective": Perspective,
     "PiecewiseAffine": PiecewiseAffine,
     "PixelDropout": PixelDropout,
-    #"RandomCrop": RandomCrop,
+    #"RandomCrop": partial(RandomCrop),
     "RandomCropFromBorders": RandomCropFromBorders,
     "RandomCropNearBBox": RandomCropNearBBox,
     "RandomGridShuffle": RandomGridShuffle,
@@ -50,7 +44,7 @@ dictInternalAug_brightness_and_transform_settings = {
     "RandomScale": RandomScale,
     "RandomSizedBBoxSafeCrop": RandomSizedBBoxSafeCrop,
     "RandomSizedCrop": RandomSizedCrop,
-    #"Resize": Resize,
+    #"Resize": partial(Resize),
     #"Rotate": Rotate,
     "SafeRotate": SafeRotate,
     "ShiftScaleRotate": ShiftScaleRotate,
@@ -74,13 +68,13 @@ dictInternalAug_brightness_and_transform_settings = {
     "Downscale": Downscale,
     "Emboss": Emboss,
     "Equalize": Equalize,
-    #"FDA": FDA,
+    #"FDA": partial(FDA),
     "FancyPCA": FancyPCA,
     "FromFloat": FromFloat,
     "GaussNoise": GaussNoise,
     "GaussianBlur": GaussianBlur,
     "GlassBlur": GlassBlur,
-    #"HistogramMatching": HistogramMatching,
+    #"HistogramMatching": partial(HistogramMatching),
     "HueSaturationValue": HueSaturationValue,
     "ISONoise": ISONoise,
     "Illumination": Illumination,
@@ -90,7 +84,7 @@ dictInternalAug_brightness_and_transform_settings = {
     "MotionBlur": MotionBlur,
     "MultiplicativeNoise": MultiplicativeNoise,
     "Normalize": Normalize,
-    "PixelDistributionAdaptation": PixelDistributionAdaptation,
+    #"PixelDistributionAdaptation": partial(PixelDistributionAdaptation),
     "PlanckianJitter": PlanckianJitter,
     "PlasmaBrightnessContrast": PlasmaBrightnessContrast,
     "PlasmaShadow": PlasmaShadow,
@@ -112,8 +106,8 @@ dictInternalAug_brightness_and_transform_settings = {
     "Solarize": Solarize,
     "Spatter": Spatter,
     "Superpixels": Superpixels,
-    #"TemplateTransform": TemplateTransform,
-    #"TextImage": TextImage,
+    #"TemplateTransform": partial(TemplateTransform),
+    #"TextImage": partial(TextImage),
     "ToFloat": ToFloat,
     "ToGray": ToGray,
     "ToRGB": ToRGB,
@@ -183,7 +177,7 @@ dictInternalAug_brightness_settings = {
     "UnsharpMask": UnsharpMask,
     "ZoomBlur": ZoomBlur,
 }
-# делаем словарь ерез partial(fun, *class(Affine)]), оставляем только параметр p
+
 dictInternalAug_transform_settings = {
     "Affine": Affine,
     #"AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,

@@ -359,7 +359,7 @@ class workSpaceWidget(QStackedWidget):
                                                             )
                     self.thread_external.finished.connect(lambda: self.btnStart_external.setEnabled(True))
                     self.thread_external.finished.connect(lambda: setattr(self, 'process_running_external', False))
-                    self.thread_transform.finished.connect(self.dictParams_external.clear())
+                    self.thread_external.finished.connect(self.dictParams_external.clear())
                     self.thread_external.start()
 
         elif select_box_external:
