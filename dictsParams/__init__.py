@@ -7,26 +7,52 @@ from albumentations import *
 
 #!!!Во всех partial указать необходимый параметр для запуска...
 dictInternalAug_brightness_and_transform_settings = {
-    "Affine": Affine, 
-    #"AtLeastOneBBoxRandomCrop": partial(AtLeastOneBBoxRandomCrop),
+     
+    "AtLeastOneBBoxRandomCrop": partial(AtLeastOneBBoxRandomCrop),
+    
+    "CenterCrop": partial(CenterCrop),
+    
+    "CropNonEmptyMaskIfExists": partial(CropNonEmptyMaskIfExists),
+    
+    
+    "GridElasticDeform": partial(GridElasticDeform),
+    
+    "LongestMaxSize": partial(LongestMaxSize),
+    
+    "Morphological": partial(Morphological),
+    
+    "RandomCrop": partial(RandomCrop),
+    
+    "RandomRotate90": RandomRotate90,
+    
+    "Resize": partial(Resize),
+    "Rotate": Rotate,
+    
+    "FDA": partial(FDA),
+    
+    "HistogramMatching": partial(HistogramMatching),
+    
+    "PixelDistributionAdaptation": partial(PixelDistributionAdaptation),
+    
+    "TemplateTransform": partial(TemplateTransform),
+    "TextImage": partial(TextImage)
+    
+}
+save_all = {
+    "Affine": Affine,
     "BBoxSafeRandomCrop": BBoxSafeRandomCrop,
-    #"CenterCrop": partial(CenterCrop),
     "CoarseDropout": CoarseDropout,
     "ConstrainedCoarseDropout": ConstrainedCoarseDropout,
     "Crop": Crop,
     "CropAndPad": CropAndPad,
-    #"CropNonEmptyMaskIfExists": partial(CropNonEmptyMaskIfExists),
     "D4": D4,
     "ElasticTransform": ElasticTransform,
     "Erasing": Erasing,
     "FrequencyMasking": FrequencyMasking,
     "GridDistortion": GridDistortion,
     "GridDropout": GridDropout,
-    #"GridElasticDeform": partial(GridElasticDeform),
     "HorizontalFlip": HorizontalFlip,
-    #"LongestMaxSize": partial(LongestMaxSize),
     "MaskDropout": MaskDropout,
-    #"Morphological": partial(Morphological),
     "NoOp": NoOp,
     "OpticalDistortion": OpticalDistortion,
     "OverlayElements": OverlayElements,
@@ -35,17 +61,13 @@ dictInternalAug_brightness_and_transform_settings = {
     "Perspective": Perspective,
     "PiecewiseAffine": PiecewiseAffine,
     "PixelDropout": PixelDropout,
-    #"RandomCrop": partial(RandomCrop),
     "RandomCropFromBorders": RandomCropFromBorders,
     "RandomCropNearBBox": RandomCropNearBBox,
     "RandomGridShuffle": RandomGridShuffle,
     "RandomResizedCrop": RandomResizedCrop,
-    #"RandomRotate90": RandomRotate90,
     "RandomScale": RandomScale,
     "RandomSizedBBoxSafeCrop": RandomSizedBBoxSafeCrop,
     "RandomSizedCrop": RandomSizedCrop,
-    #"Resize": partial(Resize),
-    #"Rotate": Rotate,
     "SafeRotate": SafeRotate,
     "ShiftScaleRotate": ShiftScaleRotate,
     "SmallestMaxSize": SmallestMaxSize,
@@ -68,13 +90,11 @@ dictInternalAug_brightness_and_transform_settings = {
     "Downscale": Downscale,
     "Emboss": Emboss,
     "Equalize": Equalize,
-    #"FDA": partial(FDA),
     "FancyPCA": FancyPCA,
     "FromFloat": FromFloat,
     "GaussNoise": GaussNoise,
     "GaussianBlur": GaussianBlur,
     "GlassBlur": GlassBlur,
-    #"HistogramMatching": partial(HistogramMatching),
     "HueSaturationValue": HueSaturationValue,
     "ISONoise": ISONoise,
     "Illumination": Illumination,
@@ -84,7 +104,6 @@ dictInternalAug_brightness_and_transform_settings = {
     "MotionBlur": MotionBlur,
     "MultiplicativeNoise": MultiplicativeNoise,
     "Normalize": Normalize,
-    #"PixelDistributionAdaptation": partial(PixelDistributionAdaptation),
     "PlanckianJitter": PlanckianJitter,
     "PlasmaBrightnessContrast": PlasmaBrightnessContrast,
     "PlasmaShadow": PlasmaShadow,
@@ -106,8 +125,6 @@ dictInternalAug_brightness_and_transform_settings = {
     "Solarize": Solarize,
     "Spatter": Spatter,
     "Superpixels": Superpixels,
-    #"TemplateTransform": partial(TemplateTransform),
-    #"TextImage": partial(TextImage),
     "ToFloat": ToFloat,
     "ToGray": ToGray,
     "ToRGB": ToRGB,
@@ -117,6 +134,18 @@ dictInternalAug_brightness_and_transform_settings = {
 }
 
 dictInternalAug_brightness_settings = {
+ 
+    "FDA": FDA,
+
+    "HistogramMatching": HistogramMatching,
+
+    "PixelDistributionAdaptation": PixelDistributionAdaptation,
+
+    "TemplateTransform": TemplateTransform,
+    "TextImage": TextImage
+}
+
+save_brights = {
     "AdditiveNoise": AdditiveNoise,
     "AdvancedBlur": AdvancedBlur,
     "AutoContrast": AutoContrast,
@@ -130,13 +159,13 @@ dictInternalAug_brightness_settings = {
     "Downscale": Downscale,
     "Emboss": Emboss,
     "Equalize": Equalize,
-    #"FDA": FDA,
+
     "FancyPCA": FancyPCA,
     "FromFloat": FromFloat,
     "GaussNoise": GaussNoise,
     "GaussianBlur": GaussianBlur,
     "GlassBlur": GlassBlur,
-    #"HistogramMatching": HistogramMatching,
+
     "HueSaturationValue": HueSaturationValue,
     "ISONoise": ISONoise,
     "Illumination": Illumination,
@@ -146,7 +175,7 @@ dictInternalAug_brightness_settings = {
     "MotionBlur": MotionBlur,
     "MultiplicativeNoise": MultiplicativeNoise,
     "Normalize": Normalize,
-    #"PixelDistributionAdaptation": PixelDistributionAdaptation,
+
     "PlanckianJitter": PlanckianJitter,
     "PlasmaBrightnessContrast": PlasmaBrightnessContrast,
     "PlasmaShadow": PlasmaShadow,
@@ -168,50 +197,69 @@ dictInternalAug_brightness_settings = {
     "Solarize": Solarize,
     "Spatter": Spatter,
     "Superpixels": Superpixels,
-    #"TemplateTransform": TemplateTransform,
-    #"TextImage": TextImage,
+
     "ToFloat": ToFloat,
     "ToGray": ToGray,
     "ToRGB": ToRGB,
     "ToSepia": ToSepia,
     "UnsharpMask": UnsharpMask,
-    "ZoomBlur": ZoomBlur,
+    "ZoomBlur": ZoomBlur
 }
 
 dictInternalAug_transform_settings = {
+        #"AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
+
+        #"CenterCrop": CenterCrop,
+
+        #"CropAndPad": CropAndPad,
+        #"CropNonEmptyMaskIfExists": CropNonEmptyMaskIfExists,
+
+        #"GridElasticDeform": GridElasticDeform,
+
+        #"LongestMaxSize": LongestMaxSize,
+        #"Morphological": Morphological,
+
+        #"RandomCrop": RandomCrop,
+        #"RandomRotate90": RandomRotate90,
+        #"Resize": Resize,
+        #"Rotate": Rotate,
+
+}
+
+save_transform = {
     "Affine": Affine,
-    #"AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
+        #"AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
     "BBoxSafeRandomCrop": BBoxSafeRandomCrop,
-    #"CenterCrop": CenterCrop,
+        #"CenterCrop": CenterCrop,
     "CoarseDropout": CoarseDropout,
     "ConstrainedCoarseDropout": ConstrainedCoarseDropout,
     "Crop": Crop,
-    #"CropAndPad": CropAndPad,
-    #"CropNonEmptyMaskIfExists": CropNonEmptyMaskIfExists,
+        #"CropAndPad": CropAndPad,
+        #"CropNonEmptyMaskIfExists": CropNonEmptyMaskIfExists,
     "D4": D4,
     "ElasticTransform": ElasticTransform,
     "Erasing": Erasing,
     "FrequencyMasking": FrequencyMasking,
     "GridDistortion": GridDistortion,
     "GridDropout": GridDropout,
-    #"GridElasticDeform": GridElasticDeform,
+        #"GridElasticDeform": GridElasticDeform,
     "HorizontalFlip": HorizontalFlip,
-    #"LongestMaxSize": LongestMaxSize,
-    #"Morphological": Morphological,
+        #"LongestMaxSize": LongestMaxSize,
+        #"Morphological": Morphological,
     "NoOp": NoOp,
     "OpticalDistortion": OpticalDistortion,
     "Pad": Pad,
     "Perspective": Perspective,
     "PixelDropout": PixelDropout,
-    #"RandomCrop": RandomCrop,
-    #"RandomRotate90": RandomRotate90,
-    #"Resize": Resize,
-    #"Rotate": Rotate,
+        #"RandomCrop": RandomCrop,
+        #"RandomRotate90": RandomRotate90,
+        #"Resize": Resize,
+        #"Rotate": Rotate,
     "ThinPlateSpline": ThinPlateSpline,
     "TimeMasking": TimeMasking,
     "TimeReverse": TimeReverse,
     "Transpose": Transpose,
-    "VerticalFlip": VerticalFlip,
+    "VerticalFlip": VerticalFlip
 }
 
 dictParamsAug_Yolo = {
