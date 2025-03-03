@@ -247,6 +247,8 @@ class manageParams:
 
         
     def AtLeastOneBBoxRandomCrop(self):
+        #import albumentations as a
+        #a.AtLeastOneBBoxRandomCrop()
         height = [100, 1024]
         width = [100, 1024]
         erosion_factor = [0, 1]

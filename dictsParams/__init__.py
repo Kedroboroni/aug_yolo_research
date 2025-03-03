@@ -207,22 +207,22 @@ save_brights = {
 }
 
 dictInternalAug_transform_settings = {
-        #"AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
+    "AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
 
-        #"CenterCrop": CenterCrop,
+    "CenterCrop": CenterCrop,
 
-        #"CropAndPad": CropAndPad,
-        #"CropNonEmptyMaskIfExists": CropNonEmptyMaskIfExists,
+    "CropAndPad": CropAndPad,
+    "CropNonEmptyMaskIfExists": CropNonEmptyMaskIfExists,
 
-        #"GridElasticDeform": GridElasticDeform,
+    "GridElasticDeform": GridElasticDeform,
 
-        #"LongestMaxSize": LongestMaxSize,
-        #"Morphological": Morphological,
+    "LongestMaxSize": LongestMaxSize,
+    "Morphological": Morphological,
 
-        #"RandomCrop": RandomCrop,
-        #"RandomRotate90": RandomRotate90,
-        #"Resize": Resize,
-        #"Rotate": Rotate,
+    "RandomCrop": RandomCrop,
+    "RandomRotate90": RandomRotate90,
+    "Resize": Resize,
+    "Rotate": Rotate,
 
 }
 
