@@ -74,6 +74,9 @@ except Exception as e:
     print(e)
 
 
+
+
+
 print("----------------------------")
 print("Для выхода нажмите любую кнопку")
 a = input()

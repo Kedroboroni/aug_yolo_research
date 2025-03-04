@@ -1,50 +1,25 @@
 from functools import partial
 from albumentations import *
+import cv2
+
+#С функциями со стандартными параметрами проблема. они используют только их!!!
 
 
-
-
-
-#!!!Во всех partial указать необходимый параметр для запуска...
-dictInternalAug_brightness_and_transform_settings = {
-     
-    "AtLeastOneBBoxRandomCrop": partial(AtLeastOneBBoxRandomCrop),
-    
-    "CenterCrop": partial(CenterCrop),
-    
-    "CropNonEmptyMaskIfExists": partial(CropNonEmptyMaskIfExists),
-    
-    
-    "GridElasticDeform": partial(GridElasticDeform),
-    
-    "LongestMaxSize": partial(LongestMaxSize),
-    
-    "Morphological": partial(Morphological),
-    
-    "RandomCrop": partial(RandomCrop),
-    
+#Используется для запуска функций с необходимыми параметрами
+dictInternalAug_brightness_and_transform_settings = { 
+    "AtLeastOneBBoxRandomCrop": partial(AtLeastOneBBoxRandomCrop, **{"height": 640, "width": 640} ), 
+    "CropAndPad": partial(CropAndPad, **{"percent":0}),
+    "GridElasticDeform": partial(GridElasticDeform, **{"num_grid_xy": (8,10), "magnitude": 10}),
+    "LongestMaxSize": partial(LongestMaxSize, **{"max_size_hw": (640, 640)}),
+    "RandomCrop": partial(RandomCrop, **{"height": 640, "width": 640}),
+    "Resize": partial(Resize, **{"height": 640, "width": 640}),
+    "Rotate": partial(Rotate, **{"limit": (13,340), "border_mode": cv2.BORDER_REFLECT,}),
     "RandomRotate90": RandomRotate90,
-    
-    "Resize": partial(Resize),
-    "Rotate": Rotate,
-    
-    "FDA": partial(FDA),
-    
-    "HistogramMatching": partial(HistogramMatching),
-    
-    "PixelDistributionAdaptation": partial(PixelDistributionAdaptation),
-    
-    "TemplateTransform": partial(TemplateTransform),
-    "TextImage": partial(TextImage)
-    
-}
-save_all = {
     "Affine": Affine,
     "BBoxSafeRandomCrop": BBoxSafeRandomCrop,
     "CoarseDropout": CoarseDropout,
     "ConstrainedCoarseDropout": ConstrainedCoarseDropout,
     "Crop": Crop,
-    "CropAndPad": CropAndPad,
     "D4": D4,
     "ElasticTransform": ElasticTransform,
     "Erasing": Erasing,
@@ -53,14 +28,14 @@ save_all = {
     "GridDropout": GridDropout,
     "HorizontalFlip": HorizontalFlip,
     "MaskDropout": MaskDropout,
-    "NoOp": NoOp,
+    #"NoOp": NoOp,
     "OpticalDistortion": OpticalDistortion,
     "OverlayElements": OverlayElements,
     "Pad": Pad,
     "PadIfNeeded": PadIfNeeded,
     "Perspective": Perspective,
     "PiecewiseAffine": PiecewiseAffine,
-    "PixelDropout": PixelDropout,
+    #"PixelDropout": PixelDropout,
     "RandomCropFromBorders": RandomCropFromBorders,
     "RandomCropNearBBox": RandomCropNearBBox,
     "RandomGridShuffle": RandomGridShuffle,
@@ -72,8 +47,8 @@ save_all = {
     "ShiftScaleRotate": ShiftScaleRotate,
     "SmallestMaxSize": SmallestMaxSize,
     "ThinPlateSpline": ThinPlateSpline,
-    "TimeMasking": TimeMasking,
-    "TimeReverse": TimeReverse,
+    #"TimeMasking": TimeMasking,
+    #"TimeReverse": TimeReverse,
     "Transpose": Transpose,
     "VerticalFlip": VerticalFlip,
     "XYMasking": XYMasking,
@@ -133,19 +108,8 @@ save_all = {
     "ZoomBlur": ZoomBlur
 }
 
-dictInternalAug_brightness_settings = {
- 
-    "FDA": FDA,
-
-    "HistogramMatching": HistogramMatching,
-
-    "PixelDistributionAdaptation": PixelDistributionAdaptation,
-
-    "TemplateTransform": TemplateTransform,
-    "TextImage": TextImage
-}
-
-save_brights = {
+#Используется для вывода методов изменения яркости
+dictInternalAug_brightness_settings = { 
     "AdditiveNoise": AdditiveNoise,
     "AdvancedBlur": AdvancedBlur,
     "AutoContrast": AutoContrast,
@@ -159,13 +123,11 @@ save_brights = {
     "Downscale": Downscale,
     "Emboss": Emboss,
     "Equalize": Equalize,
-
     "FancyPCA": FancyPCA,
     "FromFloat": FromFloat,
     "GaussNoise": GaussNoise,
     "GaussianBlur": GaussianBlur,
     "GlassBlur": GlassBlur,
-
     "HueSaturationValue": HueSaturationValue,
     "ISONoise": ISONoise,
     "Illumination": Illumination,
@@ -175,7 +137,6 @@ save_brights = {
     "MotionBlur": MotionBlur,
     "MultiplicativeNoise": MultiplicativeNoise,
     "Normalize": Normalize,
-
     "PlanckianJitter": PlanckianJitter,
     "PlasmaBrightnessContrast": PlasmaBrightnessContrast,
     "PlasmaShadow": PlasmaShadow,
@@ -197,7 +158,6 @@ save_brights = {
     "Solarize": Solarize,
     "Spatter": Spatter,
     "Superpixels": Superpixels,
-
     "ToFloat": ToFloat,
     "ToGray": ToGray,
     "ToRGB": ToRGB,
@@ -206,60 +166,44 @@ save_brights = {
     "ZoomBlur": ZoomBlur
 }
 
-dictInternalAug_transform_settings = {
+#Используется для вывода методов трансформации
+dictInternalAug_transform_settings = { 
     "AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
-
-    "CenterCrop": CenterCrop,
-
     "CropAndPad": CropAndPad,
-    "CropNonEmptyMaskIfExists": CropNonEmptyMaskIfExists,
-
     "GridElasticDeform": GridElasticDeform,
-
     "LongestMaxSize": LongestMaxSize,
-    "Morphological": Morphological,
-
     "RandomCrop": RandomCrop,
     "RandomRotate90": RandomRotate90,
     "Resize": Resize,
     "Rotate": Rotate,
-
-}
-
-save_transform = {
     "Affine": Affine,
-        #"AtLeastOneBBoxRandomCrop": AtLeastOneBBoxRandomCrop,
     "BBoxSafeRandomCrop": BBoxSafeRandomCrop,
-        #"CenterCrop": CenterCrop,
     "CoarseDropout": CoarseDropout,
     "ConstrainedCoarseDropout": ConstrainedCoarseDropout,
     "Crop": Crop,
-        #"CropAndPad": CropAndPad,
-        #"CropNonEmptyMaskIfExists": CropNonEmptyMaskIfExists,
     "D4": D4,
     "ElasticTransform": ElasticTransform,
     "Erasing": Erasing,
     "FrequencyMasking": FrequencyMasking,
     "GridDistortion": GridDistortion,
     "GridDropout": GridDropout,
-        #"GridElasticDeform": GridElasticDeform,
     "HorizontalFlip": HorizontalFlip,
-        #"LongestMaxSize": LongestMaxSize,
-        #"Morphological": Morphological,
-    "NoOp": NoOp,
+    "LongestMaxSize": LongestMaxSize,
+    #"NoOp": NoOp,
     "OpticalDistortion": OpticalDistortion,
     "Pad": Pad,
     "Perspective": Perspective,
-    "PixelDropout": PixelDropout,
-        #"RandomCrop": RandomCrop,
-        #"RandomRotate90": RandomRotate90,
-        #"Resize": Resize,
-        #"Rotate": Rotate,
+    #"PixelDropout": PixelDropout,
+    "RandomCrop": RandomCrop,
+    "RandomRotate90": RandomRotate90,
+    "Resize": Resize,
+    "Rotate": Rotate,
     "ThinPlateSpline": ThinPlateSpline,
-    "TimeMasking": TimeMasking,
-    "TimeReverse": TimeReverse,
+    #"TimeMasking": TimeMasking,
+    #"TimeReverse": TimeReverse,
     "Transpose": Transpose,
     "VerticalFlip": VerticalFlip
+
 }
 
 dictParamsAug_Yolo = {
@@ -282,3 +226,4 @@ dictParamsAug_Yolo = {
     "erasing": 0.4,  
     "crop_fraction": 1.0,  
 }
+

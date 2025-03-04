@@ -15,6 +15,7 @@ class manageParams:
 
         #return parent()
 
+
     def get_params(self):
         if self.name_fun == "Affine":
             return self.Affine()
@@ -218,6 +219,26 @@ class manageParams:
             return self.UnsharpMask()
         elif self.name_fun == "ZoomBlur":
             return self.ZoomBlur()
+        
+
+        elif self.name_fun == "RandomCrop":
+            return self.RandomCrop()
+        elif self.name_fun == "RandomRotate90":
+            return self.RandomRotate90()
+        elif self.name_fun == "Resize":
+            return self.Resize()
+        elif self.name_fun == "Rotate":
+            return self.Rotate()
+        elif self.name_fun == "PixelDropout":
+            return self.PixelDropout()
+        elif self.name_fun == "TimeMasking":
+            return self.TimeMasking()
+        elif self.name_fun == "TimeReverse":
+            return self.TimeReverse()
+        elif self.name_fun == "Transpose":
+            return self.Transpose()
+        elif self.name_fun == "VerticalFlip":
+            return self.VerticalFlip()  
         else:
             raise ValueError(f"Метод: {self.name_fun} не существует")
 
@@ -247,8 +268,6 @@ class manageParams:
 
         
     def AtLeastOneBBoxRandomCrop(self):
-        #import albumentations as a
-        #a.AtLeastOneBBoxRandomCrop()
         height = [100, 1024]
         width = [100, 1024]
         erosion_factor = [0, 1]
@@ -357,7 +376,6 @@ class manageParams:
     
 
     def CropAndPad(self):
-        px = [0, 100]
         percent = [0, 1]
         pad_mode = [
             cv2.BORDER_CONSTANT,
@@ -371,7 +389,6 @@ class manageParams:
             False
         ]
         return {
-            "px": px,
             "percent": percent,
             "pad_mode": pad_mode,
             "keep_size": keep_size
@@ -495,7 +512,8 @@ class manageParams:
             cv2.INTER_LANCZOS4,
             cv2.INTER_BITS,
             cv2.INTER_NEAREST_EXACT,
-            cv2.INTER_MAX          
+            cv2.INTER_MAX,
+            "asda"          
         ]
         return {
             "num_grid_xy": num_grid_xy,
@@ -823,7 +841,7 @@ class manageParams:
 
 
     def Equalize(self):
-        mode = ['cv', 'pil']
+        mode = ['cv', 'pil', "cv"]
         by_channels = [True, False]
         return {
             "mode": mode,
@@ -916,7 +934,8 @@ class manageParams:
     def ImageCompression(self):
         compression_typ =[
             'jpeg',
-            'webp'
+            'webp',
+            'jpeg'
         ]
         quality_range = [(99, 100), "int"]
         return {
@@ -973,12 +992,18 @@ class manageParams:
 
 
     def PixelDistributionAdaptation(self):
-        transform_type = ['pca', 'standard']
+        transform_type = ['pca',
+                          'standard',
+                          'pca'
+                        ]
         return {"transform_type": transform_type}
 
 
     def PlanckianJitter(self):
-        mode = ['blackbody', 'CIED']
+        mode = ['blackbody',
+                'CIED',
+                'blackbody'
+            ]
         strength = [(0, 1), "float"]
         return {"mode": mode, "strength": strength}
 
@@ -1073,7 +1098,8 @@ class manageParams:
         snow_point_range = [(0.1, 0.3), "float"]
         method = [
             'bleach',
-            'texture'
+            'texture',
+            'bleach',
         ]
         return {
             "brightness_coeff": brightness_coeff,
@@ -1335,4 +1361,4 @@ class manageParams:
         crop_fraction = [0, 1]
         return {"crop_fraction": crop_fraction}
 
-    #
+

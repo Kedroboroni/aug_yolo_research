@@ -23,7 +23,6 @@ def read_yolo_annotations(path_txtFile: str) -> np.array:
             read_yolo_coordinates(path_txtFile),
             axis=1
         )
-        print(path_txtFile)
     
     return result
 
@@ -79,7 +78,7 @@ def read_yolo_coordinates(path_txtFile: str) -> np.array:
                 abs(float(height))
             ]
         )
-        
+
     return np.array(coordinates)
 
 def save_yolo_annotations(path_txtFile: str, coordinates) -> bool:
@@ -105,7 +104,7 @@ def save_yolo_annotations(path_txtFile: str, coordinates) -> bool:
     
     return True
 
-def save_result_transform(path_directory: str, new_image, new_coordinate, flag=None) -> None:
+def save_result_transform(path_directory: str, new_image, new_coordinate, name_funs, flag=None) -> None:
     """
     Сохраняет результат аугментации в указанной директории.
     
@@ -118,16 +117,17 @@ def save_result_transform(path_directory: str, new_image, new_coordinate, flag=N
     Возвращает:
     None
     """
-    name_obj = uuid4()
+    name_obj = f"{uuid4()}"[:7]
+    name_funs = "_".join(name_funs)
 
     if flag is None:
 
-        cv2.imwrite(rf"{path_directory}\{name_obj}.jpg", new_image)
-        save_yolo_annotations(rf"{path_directory}\{name_obj}.txt", new_coordinate)
+        cv2.imwrite(rf"{path_directory}/{name_funs}_{name_obj}.jpg", new_image)
+        save_yolo_annotations(rf"{path_directory}/{name_funs}_{name_obj}.txt", new_coordinate)
     
     else:
-        cv2.imwrite(rf"{path_directory}\Нерпавильная_разметка_{name_obj}.jpg", new_image)
-        save_yolo_annotations(rf"{path_directory}\Нерпавильная_разметка_{name_obj}.txt", new_coordinate)
+        cv2.imwrite(rf"{path_directory}/Нерпавильная_разметка_{name_obj}_{name_funs}.jpg", new_image)
+        save_yolo_annotations(rf"{path_directory}/Нерпавильная_разметка_{name_obj}_{name_funs}.txt", new_coordinate)
 
 def apply_transform_get_coordinate(image, coordinates, transformParent) -> tuple:
     """
@@ -166,6 +166,10 @@ def apply_transform_get_coordinate(image, coordinates, transformParent) -> tuple
     )
             
     return result["image"], new_coordinates, None
+
+
+def test():
+    print(f"Запустили -> core_aug")
 
 
 

@@ -1,4 +1,3 @@
-import time
 import sys, os
 sys.path.append(os.path.dirname(
         os.path.dirname(
@@ -26,7 +25,6 @@ def on_btnStart(queue, path, listKeys, dictParams, p):
     obects_in_directory = os.listdir(path)
     total_steps = int(len(obects_in_directory)/2 * p)
     current_step = 0
-    
     listFunctions = []
     for key in listKeys:
         if key in dictParams:
@@ -34,6 +32,7 @@ def on_btnStart(queue, path, listKeys, dictParams, p):
 
         else:
             listFunctions.append(partial(dictInternalAug_brightness_and_transform_settings[key]))
+
     
     anotations_in_directory = [anotation for anotation in obects_in_directory if anotation.endswith('.txt')]
     k = int(len(anotations_in_directory) * p)
@@ -54,9 +53,9 @@ def on_btnStart(queue, path, listKeys, dictParams, p):
                 
                 image = cv2.imread(name_img)
                 anotation = read_yolo_annotations(name_txt)
-                
+
                 new_image, new_anotation, flag = apply_aug_image(image, anotation, listFunctions)
-                save_result_transform(path, new_image, new_anotation, flag)
+                save_result_transform(path, new_image, new_anotation, listKeys, flag)
                                   
                 percentage = int(((current_step/2) / total_steps) * 100)
                 queue.put(percentage)

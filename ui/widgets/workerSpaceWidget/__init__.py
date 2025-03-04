@@ -192,21 +192,15 @@ class workSpaceWidget(QStackedWidget):
 
 
     def updateParams_brighets(self, name_fun, dictParams):
-
         self.dictParams[name_fun] = partial(self.dictParamsInternal[name_fun], **dictParams)
-        print(f"Обновили параметры: {self.dictParams}")
 
 
     def updateParams_transform(self, name_fun, dictParams):
-
         self.dictParams_transform[name_fun] = partial(self.dictParamsInternalTransform[name_fun], **dictParams)
-        print(f"Обновили параметры: {self.dictParams_transform}")
 
 
     def updateParams_external(self, name_param, dictParam):
-
         self.dictParams_external[name_param] = dictParam[name_param]
-        print(f"Обновили параметры: {self.dictParams_external}")
 
 
     def on_btnStart_brightness_settings(self):
@@ -241,7 +235,7 @@ class workSpaceWidget(QStackedWidget):
                 self.thread.finished.connect(self.msg.update_progress_bar)
                 self.thread.finished.connect(lambda: self.btnStart.setEnabled(True))
                 self.thread.finished.connect(lambda: setattr(self, 'process_running', False))
-                self.thread.finished.connect(self.dictParams_transform.clear())
+                self.thread.finished.connect(self.dictParams.clear)
                 self.thread.done.connect(self.msg.close)
                 self.thread.start()
         
@@ -306,7 +300,7 @@ class workSpaceWidget(QStackedWidget):
                 self.thread_transform.finished.connect(self.msg_transform.update_progress_bar)
                 self.thread_transform.finished.connect(lambda: self.btnStart_transform.setEnabled(True))
                 self.thread_transform.finished.connect(lambda: setattr(self, 'process_running_transform', False))
-                self.thread_transform.finished.connect(self.dictParams_transform.clear())
+                self.thread_transform.finished.connect(self.dictParams_transform.clear)
                 self.thread_transform.done.connect(self.msg_transform.close)
                 self.thread_transform.start()
 
@@ -359,7 +353,7 @@ class workSpaceWidget(QStackedWidget):
                                                             )
                     self.thread_external.finished.connect(lambda: self.btnStart_external.setEnabled(True))
                     self.thread_external.finished.connect(lambda: setattr(self, 'process_running_external', False))
-                    self.thread_external.finished.connect(self.dictParams_external.clear())
+                    self.thread_external.finished.connect(self.dictParams_external.clear)
                     self.thread_external.start()
 
         elif select_box_external:

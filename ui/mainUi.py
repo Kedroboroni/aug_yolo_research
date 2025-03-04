@@ -1,8 +1,6 @@
-from PySide6.QtWidgets import QMainWindow, QHBoxLayout, QVBoxLayout, QWidget, QApplication
+from PySide6.QtWidgets import *
 from widgets import errorWidget,  sidebarWidget, workerSpaceWidget
 import sys
-
-
 
 
 
@@ -64,18 +62,3 @@ if __name__ == "__main__":
     window.setGeometry(350, 50, 800, 800)
     window.show()
     sys.exit(app.exec())
-    
-
-
-    #a = [  ]
-
-
-
-    #ненужны настройки = [functools.partial(<class 'albumentations.augmentations.dropout.coarse_dropout.Erasing'>),
-    #functools.partial(<class 'albumentations.augmentations.spectrogram.transform.FrequencyMasking'>),
-    #functools.partial(<class 'albumentations.augmentations.geometric.transforms.GridDistortion'>),
-    #functools.partial(<class 'albumentations.augmentations.dropout.grid_dropout.GridDropout'>),
-    #functools.partial(<class 'albumentations.augmentations.geometric.transforms.HorizontalFlip'>)]
-
-
-    #нужны настройки = [functools.partial(<class 'albumentations.augmentations.geometric.transforms.GridElasticDeform'>),]
