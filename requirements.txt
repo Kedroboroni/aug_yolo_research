@@ -50,3 +50,4 @@ tzdata==2025.1
 ultralytics==8.3.68
 ultralytics-thop==2.0.14
 urllib3==2.3.0
+yolosplitter==0.5.0.0

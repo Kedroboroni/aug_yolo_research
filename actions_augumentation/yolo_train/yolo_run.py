@@ -1,4 +1,34 @@
-try:
+
+
+
+def main(path_dataset):
+    try:
+        path_yaml_data = rf"{path_dataset}\data.yaml"
+        save_dir = rf"C:\WorkSpace\Diplom\research Augumentation\results"
+        device = 1 #Изменить на 0, если хотите и пользовать GPU
+        epochs = 1
+        img_size = 640
+        save_plot = True
+        batch_size = 4
+
+        model = YOLO("yolo11n.yaml")
+
+        results = model.train(data = path_yaml_data,
+                                epochs=epochs,
+                                imgsz=img_size,
+                                plots = save_plot,
+                                save_dir=save_dir,
+                                device = device,
+                                batch = batch_size
+                            )
+    except Exception as e:
+        print(e)
+
+    print("----------------------------")
+    print("Для выхода нажмите любую кнопку")
+    a = input()
+
+if __name__ == "__main__":
     import sys, os
     sys.path.append(os.path.dirname(
                     os.path.dirname(
@@ -52,31 +82,5 @@ try:
     dictParams = {key: float(value[i]) if is_float(value[i]) else value[i] for i,key in enumerate(keys)}
 
     print(dictParams)
-    print("Дальше тут будет запуск обучения yolo, все созранение и работа Yolo будет назходится в папке results.")
 
-    path_yaml_data = rf"{path_dataset}\data.yaml"
-    save_dir = rf"C:\WorkSpace\Diplom\research Augumentation\results"
-    device = 0 #GPU? да, GPU
-    epochs = 1
-    img_size = 640
-    save_plot = True
-
-    model = YOLO("yolo11n.yaml")
-
-    results = model.train(data = path_yaml_data,
-                        epochs=epochs,
-                        imgsz=img_size,
-                        plots = save_plot,
-                        save_dir=save_dir,
-                        #device = device
-                    )
-except Exception as e:
-    print(e)
-
-
-
-
-
-print("----------------------------")
-print("Для выхода нажмите любую кнопку")
-a = input()
+    main(path_dataset)

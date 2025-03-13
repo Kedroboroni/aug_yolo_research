@@ -2,7 +2,7 @@ from functools import partial
 from albumentations import *
 import cv2
 
-#С функциями со стандартными параметрами проблема. они используют только их!!!
+
 
 
 #Используется для запуска функций с необходимыми параметрами
@@ -19,7 +19,7 @@ dictInternalAug_brightness_and_transform_settings = {
     "BBoxSafeRandomCrop": BBoxSafeRandomCrop,
     "CoarseDropout": CoarseDropout,
     "ConstrainedCoarseDropout": ConstrainedCoarseDropout,
-    "Crop": Crop,
+    #"Crop": Crop,
     "D4": D4,
     "ElasticTransform": ElasticTransform,
     "Erasing": Erasing,
@@ -111,7 +111,7 @@ dictInternalAug_brightness_and_transform_settings = {
 #Используется для вывода методов изменения яркости
 dictInternalAug_brightness_settings = { 
     "AdditiveNoise": AdditiveNoise,
-    "AdvancedBlur": AdvancedBlur,
+    #"AdvancedBlur": AdvancedBlur,
     "AutoContrast": AutoContrast,
     "Blur": Blur,
     "CLAHE": CLAHE,
@@ -123,7 +123,7 @@ dictInternalAug_brightness_settings = {
     "Downscale": Downscale,
     "Emboss": Emboss,
     "Equalize": Equalize,
-    "FancyPCA": FancyPCA,
+    #"FancyPCA": FancyPCA,
     "FromFloat": FromFloat,
     "GaussNoise": GaussNoise,
     "GaussianBlur": GaussianBlur,
@@ -131,12 +131,12 @@ dictInternalAug_brightness_settings = {
     "HueSaturationValue": HueSaturationValue,
     "ISONoise": ISONoise,
     "Illumination": Illumination,
-    "ImageCompression": ImageCompression,
+    #"ImageCompression": ImageCompression,
     "InvertImg": InvertImg,
     "MedianBlur": MedianBlur,
     "MotionBlur": MotionBlur,
     "MultiplicativeNoise": MultiplicativeNoise,
-    "Normalize": Normalize,
+    #"Normalize": Normalize,
     "PlanckianJitter": PlanckianJitter,
     "PlasmaBrightnessContrast": PlasmaBrightnessContrast,
     "PlasmaShadow": PlasmaShadow,
@@ -151,18 +151,18 @@ dictInternalAug_brightness_settings = {
     "RandomSnow": RandomSnow,
     "RandomSunFlare": RandomSunFlare,
     "RandomToneCurve": RandomToneCurve,
-    "RingingOvershoot": RingingOvershoot,
+    #"RingingOvershoot": RingingOvershoot,
     "SaltAndPepper": SaltAndPepper,
     "Sharpen": Sharpen,
     "ShotNoise": ShotNoise,
     "Solarize": Solarize,
     "Spatter": Spatter,
     "Superpixels": Superpixels,
-    "ToFloat": ToFloat,
+    #"ToFloat": ToFloat,
     "ToGray": ToGray,
-    "ToRGB": ToRGB,
+    #"ToRGB": ToRGB,
     "ToSepia": ToSepia,
-    "UnsharpMask": UnsharpMask,
+    #"UnsharpMask": UnsharpMask,
     "ZoomBlur": ZoomBlur
 }
 
@@ -180,7 +180,7 @@ dictInternalAug_transform_settings = {
     "BBoxSafeRandomCrop": BBoxSafeRandomCrop,
     "CoarseDropout": CoarseDropout,
     "ConstrainedCoarseDropout": ConstrainedCoarseDropout,
-    "Crop": Crop,
+    #"Crop": Crop,
     "D4": D4,
     "ElasticTransform": ElasticTransform,
     "Erasing": Erasing,
@@ -203,7 +203,6 @@ dictInternalAug_transform_settings = {
     #"TimeReverse": TimeReverse,
     "Transpose": Transpose,
     "VerticalFlip": VerticalFlip
-
 }
 
 dictParamsAug_Yolo = {

@@ -409,7 +409,7 @@ class manageParams:
     
 
     def ElasticTransform(self):
-        alpha = [0, 1000]
+        alpha = [0, 100]
         sigma = [0, 100]
         alpha_affine = [0, 100]
         interpolation = [
