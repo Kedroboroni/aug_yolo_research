@@ -54,8 +54,10 @@ def on_btnStart(queue, path, listKeys, dictParams, p):
                 image = cv2.imread(name_img)
                 anotation = read_yolo_annotations(name_txt)
 
-                new_image, new_anotation, flag = apply_aug_image(image, anotation, listFunctions)
-                save_result_transform(path, new_image, new_anotation, listKeys, flag)
+                for j,i in enumerate(listFunctions):
+
+                    new_image, new_anotation, flag = apply_aug_image(image, anotation, [i])
+                    save_result_transform(path, new_image, new_anotation, listKeys[j], flag)
                                   
                 percentage = int(((current_step/2) / total_steps) * 100)
                 queue.put(percentage)

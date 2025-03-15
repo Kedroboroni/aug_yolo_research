@@ -117,11 +117,13 @@ def save_result_transform(path_directory: str, new_image, new_coordinate, name_f
     Возвращает:
     None
     """
-    name_obj = f"{uuid4()}"[:7]
-    name_funs = "_".join(name_funs)
+
+    name_obj = f"{uuid4()}"[:5]
+    #name_funs = "_".join(name_funs)
+    name_funs = f"{name_funs}"
 
     if flag is None:
-
+        print(rf"{path_directory}/{name_funs}_{name_obj}.jpg")
         cv2.imwrite(rf"{path_directory}/{name_funs}_{name_obj}.jpg", new_image)
         save_yolo_annotations(rf"{path_directory}/{name_funs}_{name_obj}.txt", new_coordinate)
     
