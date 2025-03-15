@@ -25,6 +25,7 @@
 
 ### 1. UI Компоненты (`ui/`)
 ui/
+```
 ├── buttons/
 │ ├── sidebarButtons/
 │ │ ├── analysButton/ # Анализ данных
@@ -36,28 +37,37 @@ ui/
 │ ├── errorLabel/ # Отображение ошибок
 │ └── sidebarLabel/ # Боковая панель
 └── stackedWidget/ # Управление вкладками
+```
 
 ### 2. Процессы (`processes/`)
 processes/
+```
 ├── process_aug.py # Многопоточная аугментация
 └── process_yolo_run.py # Управление YOLO
+```
 
 ### 3. События (`events/`)
+```
 events/
 ├── internal/ # Внутренние обработчики
 │ └── on_btnChange.py # Обработка UI событий
 └── external/ # Внешние обработчики
+```
 
 ### 4. Параметры (`dictsParams/`)
 dictsParams/
+```
 ├── manageParams.py # Управление параметрами
 └── init.py # Инициализация параметров
+```
 
 ### 5. Аугментация (`actions_augumentation/`)
 actions_augumentation/
+```
 ├── yolo_train/ # Обучение YOLO
 ├── aug/ # Методы аугментации
 └── convert_utils/ # Конвертация форматов   
+```
 
 
 ## 🔄 Процесс работы приложения
