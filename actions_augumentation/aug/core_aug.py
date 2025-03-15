@@ -3,6 +3,7 @@
 import cv2
 from uuid import uuid4
 import numpy as np
+import os
 
 def read_yolo_annotations(path_txtFile: str) -> np.array:
     """
@@ -121,18 +122,25 @@ def save_result_transform(path_directory: str, new_image, new_coordinate, name_f
     name_obj = f"{uuid4()}"[:5]
     if type(name_funs) == str:
         name_funs = f"{name_funs}"
+
     elif type(name_funs) == list:
         name_funs = "_".join(name_funs)
-    
+
+    folder_name = rf"{path_directory}/{name_funs}"
+
+    try:
+        os.makedirs(folder_name)
+    except FileExistsError:
+        pass 
 
     if flag is None:
-        print(rf"{path_directory}/{name_funs}_{name_obj}.jpg")
-        cv2.imwrite(rf"{path_directory}/{name_funs}_{name_obj}.jpg", new_image)
-        save_yolo_annotations(rf"{path_directory}/{name_funs}_{name_obj}.txt", new_coordinate)
+        cv2.imwrite(rf"{folder_name}/{name_funs}_{name_obj}.jpg", new_image)
+        save_yolo_annotations(rf"{folder_name}/{name_funs}_{name_obj}.txt", new_coordinate)
     
     else:
-        cv2.imwrite(rf"{path_directory}/Нерпавильная_разметка_{name_obj}_{name_funs}.jpg", new_image)
-        save_yolo_annotations(rf"{path_directory}/Нерпавильная_разметка_{name_obj}_{name_funs}.txt", new_coordinate)
+        cv2.imwrite(rf"{folder_name}/anotError_{name_funs}_{name_obj}.jpg", new_image)
+        save_yolo_annotations(rf"{folder_name}/anotError_{name_funs}_{name_obj}.txt", new_coordinate)
+
 
 def apply_transform_get_coordinate(image, coordinates, transformParent) -> tuple:
     """
