@@ -30,16 +30,21 @@ class ProcessThread(QThread):
     done = Signal()
     progress = Signal(int)
 
-    def __init__(self, path, listKeys, dictParams, p):
+    def __init__(self, path, listKeys, dictParams, p, check):
         super().__init__()
         self.path = path
         self.listKeys = listKeys
         self.dictParams = dictParams
         self.p = p
+        self.check = check
 
     def run(self):
         queue = Queue()
-        process = Process(target=on_btnStart, args=(queue, self.path, self.listKeys, self.dictParams, self.p))
+        if self.check == 1:
+            process = Process(target=on_btnStart_ON, args=(queue, self.path, self.listKeys, self.dictParams, self.p))
+            
+        elif self.check == 2:
+            process = Process(target=on_btnStart_OFF, args=(queue, self.path, self.listKeys, self.dictParams, self.p))
         process.start()
 
         while True:

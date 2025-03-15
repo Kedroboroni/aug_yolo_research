@@ -119,8 +119,11 @@ def save_result_transform(path_directory: str, new_image, new_coordinate, name_f
     """
 
     name_obj = f"{uuid4()}"[:5]
-    #name_funs = "_".join(name_funs)
-    name_funs = f"{name_funs}"
+    if type(name_funs) == str:
+        name_funs = f"{name_funs}"
+    elif type(name_funs) == list:
+        name_funs = "_".join(name_funs)
+    
 
     if flag is None:
         print(rf"{path_directory}/{name_funs}_{name_obj}.jpg")

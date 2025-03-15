@@ -109,6 +109,25 @@ QPushButton::pressed
 
 }
 
+
+QRadioButton
+{
+	color: rgb(73, 71, 71);
+
+}
+
+QRadioButton::pressed
+{
+	color: rgb(246, 0, 0);
+
+}
+
+QRadioButton:checked
+{
+	color: rgb(255, 255, 255);
+
+}
+
 /*-----QComboBox-----*/
 QComboBox
 {

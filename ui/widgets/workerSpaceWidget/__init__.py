@@ -29,7 +29,6 @@ from slider_p import slider_p
 
 
 
-
 class workSpaceWidget(QStackedWidget):
     
     dictParamsInternal = dictInternalAug_brightness_settings 
@@ -229,7 +228,8 @@ class workSpaceWidget(QStackedWidget):
                 self.thread = ProcessThread(path,
                                             listKeys_func,
                                             self.dictParams,
-                                            self.slider_p.currentWidget()
+                                            self.slider_p.currentWidget(),
+                                            self.slider_p.isChecked_ON_OFF()
                                         )
                 self.thread.progress.connect(self.msg.update_progress_bar)
                 self.thread.finished.connect(self.msg.update_progress_bar)
@@ -294,7 +294,8 @@ class workSpaceWidget(QStackedWidget):
                 self.thread_transform = ProcessThread(path_external,
                                                       listKeys_func_transform,
                                                       self.dictParams_transform,
-                                                      self.slider_p_transform.currentWidget()
+                                                      self.slider_p_transform.currentWidget(),
+                                                      self.slider_p.isChecked_ON_OFF()
                                                     )
                 self.thread_transform.progress.connect(self.msg_transform.update_progress_bar)
                 self.thread_transform.finished.connect(self.msg_transform.update_progress_bar)
