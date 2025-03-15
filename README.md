@@ -200,7 +200,7 @@ actions_augumentation/
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center;">
-    <img src="readme_image/3.png" alt="Logo" width="400" height="200">
+    <img src="readme_image/3.png" alt="Logo" width="400" height="390">
 </div>
 
 
@@ -224,7 +224,7 @@ actions_augumentation/
 
 
 <div style="display: flex; align-items: center; justify-content: center;">
-    <img src="readme_image/5.png" alt="Logo" width="400" height="390">
+    <img src="readme_image/5.png" alt="Logo" width="400" height="240">
 </div>
 
 
