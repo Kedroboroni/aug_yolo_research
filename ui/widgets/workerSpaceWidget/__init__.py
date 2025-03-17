@@ -295,7 +295,7 @@ class workSpaceWidget(QStackedWidget):
                                                       listKeys_func_transform,
                                                       self.dictParams_transform,
                                                       self.slider_p_transform.currentWidget(),
-                                                      self.slider_p_transfotm.isChecked_ON_OFF()
+                                                      self.slider_p_transform.isChecked_ON_OFF()
                                                     )
                 self.thread_transform.progress.connect(self.msg_transform.update_progress_bar)
                 self.thread_transform.finished.connect(self.msg_transform.update_progress_bar)
