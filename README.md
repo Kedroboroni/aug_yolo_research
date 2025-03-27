@@ -175,15 +175,17 @@ actions_augumentation/
 ## Для запуска обучения:
 
 1. Зайти в %appdata%
-
+    ```
     your_path_to_AppData\
     ├──AppData\Roaming\Ultralytics\settings.json
+    ```
 
 2. Изменить параметр "datasets_dir"
-
+    ```bash
    "datasets_dir":"path_to_your_file_data"
+    ```
 
-3. Подготовить датасет для обучения как в <a href="[https://t.me/KedrOboroni](https://docs.ultralytics.com/ru/modes/train/)">документации ultralytics</a>
+3. Подготовить датасет для обучения как в <a href="https://docs.ultralytics.com/ru/modes/train/">документации ultralytics</a>
 
 Теперь вы можете использовать приложение для работы с изображениями и их аугментацией, что позволит улучшить качество обучения моделей YOLO.
 
