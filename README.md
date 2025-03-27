@@ -147,18 +147,43 @@ actions_augumentation/
    ```bash
    git clone https://github.com/Kedroboroni/aug_yolo_research
    ```
+   
+3. Создайте виртуальную среду для приложения:
 
-3. Установите необходимые зависимости, если они указаны в `requirements.txt`:
+   ```bash
+   python -m venv .venv
+   ```
+
+4. Активирруйте виртуальную среду, если не сделали это изначально:
+
+   ```bash
+   .\.venv\Scrips\activate
+   ```
+
+5. Установите необходимые зависимости, если они указаны в `requirements.txt`:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Запустите файл `mainUI.py` для запуска приложения:
+6. Запустите файл `mainUI.py` для запуска приложения:
 
    ```bash
    python ui/mainUI.py
    ```
+
+## Для запуска обучения:
+
+1. Зайти в %appdata%
+
+    your_path_to_AppData\
+    ├──AppData\Roaming\Ultralytics\settings.json
+
+2. Изменить параметр "datasets_dir"
+
+   "datasets_dir":"path_to_your_file_data"
+
+3. Подготовить датасет для обучения как в <a href="[https://t.me/KedrOboroni](https://docs.ultralytics.com/ru/modes/train/)">документации ultralytics</a>
 
 Теперь вы можете использовать приложение для работы с изображениями и их аугментацией, что позволит улучшить качество обучения моделей YOLO.
 
