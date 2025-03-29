@@ -166,10 +166,10 @@ actions_augumentation/
    pip install -r requirements.txt
    ```
 
-6. Запустите файл `mainUI.py` для запуска приложения:
+6. Запустите файл `mainUi.py` для запуска приложения:
 
    ```bash
-   python ui/mainUI.py
+   python ui/mainUi.py
    ```
 
 ## Для запуска обучения:
