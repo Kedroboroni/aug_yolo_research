@@ -5,10 +5,13 @@ import cv2
 
 
 
+
+
+
 #Используется для запуска функций с необходимыми параметрами
 dictInternalAug_brightness_and_transform_settings = { 
     "AtLeastOneBBoxRandomCrop": partial(AtLeastOneBBoxRandomCrop, **{"height": 640, "width": 640} ), 
-    #"CropAndPad": partial(CropAndPad, **{"percent":0}),
+    ##"CropAndPad": partial(CropAndPad, **{"percent":0}),
     "GridElasticDeform": partial(GridElasticDeform, **{"num_grid_xy": (8,10), "magnitude": 10}),
     "LongestMaxSize": partial(LongestMaxSize, **{"max_size_hw": (640, 640)}),
     #"RandomCrop": partial(RandomCrop, **{"height": 640, "width": 640}),
