@@ -270,3 +270,11 @@ actions_augumentation/
 <div style="display: flex; align-items: center; justify-content: center;">
     <img src="readme_image/user.png" alt="Logo"  width="400" height="390">
 </div>
+
+
+graph TD
+    Start --> Check1{"Скорость > 100 км/ч?"}
+    Check1 -->|Да| Check2{"Температура < 50°C?"}
+    Check1 -->|Нет| Alarm["Сигнал: низкая скорость"]
+    Check2 -->|Да| Normal["Режим: штатный"]
+    Check2 -->|Нет| Warning["Сигнал: перегрев"]
